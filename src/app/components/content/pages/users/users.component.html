@@ -1,0 +1,85 @@
+<div class="users">
+    <div class="users__header" *ngIf="open">
+        <h3>Total Utilisateurs: {{ totalRow }}</h3>
+        <div class="users_header__middle">
+            <button [ngClass]="{'active':ROLE==''}" (click)="getAllUser(0, '')">Tous</button>
+            <button [ngClass]="{'active':ROLE=='Admin'}" (click)="getAllUser(0, 'Admin')">Admins</button>
+            <button [ngClass]="{'active':ROLE=='Client'}" (click)="getAllUser(0, 'Client')">Clients</button>
+            <button [ngClass]="{'active':ROLE=='Employee'}" (click)="getAllUser(0, 'Employee')">Employées</button>
+        </div>
+        <div class="users__header__right">
+            <button (click)="Open_Box_User()"><i class="fas fa-user-plus"></i></button>
+            <button (click)="openSearch()"><i class="fas fa-search"></i></button>
+        </div>
+    </div>
+    <div class="users__header__search" *ngIf="!open">
+        <div class="search">
+            <i class="fas fa-search"></i>
+            <input (keyup)="search($event, 0)" type="text" placeholder="Chercher par email">
+        </div>
+        <button (click)="close()"><i class="fas fa-times"></i></button>
+    </div>
+    
+    <table class="users_table">
+        <thead>
+            <tr>
+                <th>Nom et Prenom</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Statut</th>
+                <th>Ations</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            <tr *ngFor="let item of users">
+                <td scope="row">{{ item.nom +" "+item.prenom }}</td>
+                <td>{{ item.email }}</td>
+                <td>{{  item.role}}</td>
+                <td>
+                    <span class="actif" *ngIf="!item.supprimer">Actif</span>
+                    <span class="NoActif" *ngIf="item.supprimer">Pas Actif</span>
+                </td>
+                <td>
+                    <button class="users_table_btn"><i class="fas fa-trash-alt"></i></button>
+                    <button class="users_table_btn"><i class="fas fa-user-edit"></i></button>
+                    <button class="users_table_btn"><i class="fas fa-eye"></i></button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="table__footer">
+        <div class="table__footer__pagination">
+            <span style="color: white;">Page: </span>
+            
+            <button type="button"
+                    *ngFor="let item of counterPagination(); let i=index" 
+                    (click)="pagination(i+1)"
+                    [ngClass]="{'pahinationActive':PAGE == i+1}">{{i+1}}</button>
+            
+        </div>
+    </div>
+
+
+    
+
+</div>
+
+
+<!-- Modal Add New User -->
+<div class="users__add" *ngIf="Box_Add_New_User">
+    <button (click)="Close_Box_User()"><i class="fas fa-times"></i></button>
+    <div class="users__add__modal">
+        <div class="users__add__modal__header">
+            Ajouter Nouveau Utilisateur
+        </div>
+        <div class="users__add__modal__body">
+            <div class="users__add__modal__body__left">Left</div>
+            <div class="users__add__modal__body__right">right</div>
+        </div>
+        <div class="users__add__modal__footer">
+            <button class="bg-success">Ajouter</button>
+            <button class="bg-close">Fermer</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,29 @@
+<div class="login">
+    <div class="login__shadow">
+        <form class="login__shadow__form" [formGroup]="login" (ngSubmit)="connexion()">
+            <h2>Connexion</h2>
+            <div class="form">
+                <div class="login__shadow__form__item">
+                    <i class="fas fa-user"></i>
+                    <input formControlName="email" type="email" placeholder="Email@gmail.com">
+                </div>
+                <div class="email_error" *ngIf="login.controls['email'].invalid && (login.controls['email'].dirty || login.controls['email'].touched)">
+                    <span *ngIf="login.controls['email'].getError('required')">Ce champ est obligatoire.</span>
+                    <span *ngIf="login.controls['email'].getError('email')">Se champ doit être l'adresse e-mail.</span>
+                </div>
+            </div>  
+            <div class="form">
+                <div class="login__shadow__form__item">
+                    <i class="fas fa-key"></i>
+                    <input formControlName="password" type="password" placeholder="***************">
+                </div>
+                <div class="email_error" *ngIf="login.controls['password'].invalid && ( login.controls['password'].dirty || login.controls['password'].touched)">
+                    <span *ngIf="login.controls['password'].getError('required')">Ce champ est obligatoire.</span>
+                    <span *ngIf="login.controls['password'].getError('minlength')">Ce champ doit être supérieur à 8 caractères..</span>
+                    <span *ngIf="login.controls['password'].getError('maxlength')">Ce champ doit être inférieur à 99 caractères.</span>
+                </div>
+            </div>
+            <button type="submit" [disabled]="login.invalid">Connexion</button>
+        </form>
+    </div>
+</div>
