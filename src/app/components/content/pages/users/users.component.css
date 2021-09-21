@@ -238,7 +238,7 @@
     position: absolute;
     z-index: 902;
     width: 70%;
-    height: 80%;
+    height: fit-content;
     top: 8%;
     left: 14%;
     background-color: whitesmoke;
@@ -311,12 +311,21 @@
     font-size: 13.5px;
     margin-left: 4px;
 }
-.control-form>input{
-    outline: none;
+.control-form__input{
+    display: flex;
+    flex: 1;
+    align-items: center;
     background-color: #eee;
-    border: none;
-    padding: 5px 4px;
     border-radius: 5px;
+    padding: 5px 4px;
+}
+.control-form__input>input,
+.control-form__input>textarea,
+.control-form__input__password>input{
+    outline: none;
+    flex: 1;
+    background-color: inherit;
+    border: none;
 }
 .control-form__password{
     display: flex;
@@ -430,4 +439,40 @@
 }
 .users__delete__modal__footer>button:last-child{
     background-color: rgb(97, 2, 2);
+}
+
+.control-form__input__password{
+    display: flex;
+    flex: 1;
+}
+.control-form__password>button{
+    margin-left: 2px;
+}
+
+
+.border-red{
+    border: 1.5px solid rgb(204, 61, 61);
+}
+.border-green{
+    border: 1.5px solid rgb(22, 158, 22);
+}
+.bg-green{
+    /* background-color: rgb(22, 158, 22) !important; */
+    cursor: pointer;
+    border: 1.5px solid rgb(22, 158, 22);
+    color: rgb(22, 158, 22);
+}
+.color-green{
+    color: rgb(22, 158, 22) !important;
+}
+.color-red{
+    color: rgb(204, 61, 61) !important;
+}
+.black{
+    color: black !important;
+    box-shadow: none !important;
+    cursor: not-allowed !important;
+}
+.error{
+    color: rgb(204, 61, 61) !important;
 }

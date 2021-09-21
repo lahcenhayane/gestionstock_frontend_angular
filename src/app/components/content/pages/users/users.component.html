@@ -73,55 +73,171 @@
         <div class="users__add__modal__header">
             Ajouter Nouveau Utilisateur
         </div>
-        {{ formUser.value | json }}
         <div class="users__add__modal__body">
             <div class="users__add__modal__body__left">
-                <div class="control-form">
+                <div [ngClass]="{
+                    'control-form':true,
+                    'border-green':(formUser.controls['cin'].dirty || formUser.controls['cin'].touched) && formUser.controls['cin'].valid,
+                    'border-red':(formUser.controls['cin'].dirty || formUser.controls['cin'].touched) && formUser.controls['cin'].invalid
+                }">
                     <label for="cin">Cin</label>
-                    <input id="cin" type="text" formControlName="cin" placeholder="Entrer votre CIN.">
+                    <div class="control-form__input">
+                        <input id="cin" type="text" formControlName="cin" placeholder="Entrer votre CIN.">
+                        <i  *ngIf="(formUser.controls['cin'].invalid && (formUser.controls['cin'].dirty || formUser.controls['cin'].touched))||formUser.controls['cin'].valid"
+                            [ngClass]="formUser.controls['cin'].invalid && (formUser.controls['cin'].dirty || formUser.controls['cin'].touched)?'fas fa-exclamation-circle color-red':'fas fa-check color-green'"
+                        ></i>
+                    </div>
+                    <div class="error" *ngIf="(formUser.controls['cin'].dirty || formUser.controls['cin'].touched) && formUser.controls['cin'].invalid">
+                        <span *ngIf="formUser.controls['cin'].getError('required')">Ce champ est obligatoire.</span>
+                        <span *ngIf="formUser.controls['cin'].getError('minlength')">Ce champ doit être supérieur à 6 caractères..</span>
+                        <span *ngIf="formUser.controls['cin'].getError('maxlength')">Ce champ doit être inférieur à 9 caractères.</span>
+                    </div>
                 </div>
-                <div class="control-form">
+                <div [ngClass]="{
+                    'control-form':true,
+                    'border-green':(formUser.controls['nom'].dirty || formUser.controls['nom'].touched) && formUser.controls['nom'].valid,
+                    'border-red':(formUser.controls['nom'].dirty || formUser.controls['nom'].touched) && formUser.controls['nom'].invalid
+                }">
                     <label for="nom">Nom</label>
-                    <input id="nom" type="text" formControlName="nom" placeholder="Entrer votre nom.">
+                    <div class="control-form__input">
+                        <input id="nom" type="text" formControlName="nom" placeholder="Entrer votre nom.">
+                        <i  *ngIf="(formUser.controls['nom'].invalid && (formUser.controls['nom'].dirty || formUser.controls['nom'].touched))||formUser.controls['nom'].valid"
+                            [ngClass]="formUser.controls['nom'].invalid && (formUser.controls['nom'].dirty || formUser.controls['nom'].touched)?'fas fa-exclamation-circle color-red':'fas fa-check color-green'"
+                        ></i>
+                    </div>
+                    <div class="error" *ngIf="(formUser.controls['nom'].dirty || formUser.controls['nom'].touched) && formUser.controls['nom'].invalid">
+                        <span *ngIf="formUser.controls['nom'].getError('required')">Ce champ est obligatoire.</span>
+                        <span *ngIf="formUser.controls['nom'].getError('minlength')">Ce champ doit être supérieur à 3 caractères..</span>
+                        <span *ngIf="formUser.controls['nom'].getError('maxlength')">Ce champ doit être inférieur à 14 caractères.</span>
+                    </div>
                 </div>
-                <div class="control-form">
-                    <label for="prenom">Prenom</label>
-                    <input id="prenom" type="text" formControlName="prenom" placeholder="Entrer votre prenom.">
+
+                <div [ngClass]="{
+                    'control-form':true,
+                    'border-green':(formUser.controls['prenom'].dirty || formUser.controls['prenom'].touched) && formUser.controls['prenom'].valid,
+                    'border-red':(formUser.controls['prenom'].dirty || formUser.controls['prenom'].touched) && formUser.controls['prenom'].invalid
+                }">
+                    <label for="nom">Prenom</label>
+                    <div class="control-form__input">
+                        <input id="prenom" type="text" formControlName="prenom" placeholder="Entrer votre prenom.">
+                        <i  *ngIf="(formUser.controls['prenom'].invalid && (formUser.controls['prenom'].dirty || formUser.controls['prenom'].touched))||formUser.controls['prenom'].valid"
+                            [ngClass]="formUser.controls['prenom'].invalid && (formUser.controls['prenom'].dirty || formUser.controls['prenom'].touched)?'fas fa-exclamation-circle color-red':'fas fa-check color-green'"
+                        ></i>
+                    </div>
+                    <div class="error" *ngIf="(formUser.controls['prenom'].dirty || formUser.controls['prenom'].touched) && formUser.controls['prenom'].invalid">
+                        <span *ngIf="formUser.controls['prenom'].getError('required')">Ce champ est obligatoire.</span>
+                        <span *ngIf="formUser.controls['prenom'].getError('minlength')">Ce champ doit être supérieur à 3 caractères..</span>
+                        <span *ngIf="formUser.controls['prenom'].getError('maxlength')">Ce champ doit être inférieur à 19 caractères.</span>
+                    </div>
                 </div>
-                <div class="control-form">
+                <div [ngClass]="{
+                    'control-form':true,
+                    'border-green':(formUser.controls['email'].dirty || formUser.controls['email'].touched) && formUser.controls['email'].valid,
+                    'border-red':(formUser.controls['email'].dirty || formUser.controls['email'].touched) && formUser.controls['email'].invalid
+                }">
                     <label for="email">Email</label>
-                    <input id="email" type="email" formControlName="email" placeholder="Entrer votre email.">
+                    <div class="control-form__input">
+                        <input id="email" type="email" formControlName="email" placeholder="Entrer votre email.">
+                        <i  *ngIf="(formUser.controls['email'].invalid && (formUser.controls['email'].dirty || formUser.controls['email'].touched))||formUser.controls['email'].valid"
+                            [ngClass]="formUser.controls['email'].invalid && (formUser.controls['email'].dirty || formUser.controls['email'].touched)?'fas fa-exclamation-circle color-red':'fas fa-check color-green'"
+                        ></i>
+                    </div>
+                    <div class="error" *ngIf="(formUser.controls['email'].dirty || formUser.controls['email'].touched) && formUser.controls['email'].invalid">
+                        <span *ngIf="formUser.controls['email'].getError('required')">Ce champ est obligatoire.</span>
+                        <span *ngIf="formUser.controls['email'].getError('email')">Se champ doit être l'adresse e-mail.</span>
+                        <span *ngIf="formUser.controls['email'].getError('maxlength')">Ce champ doit être inférieur à 100 caractères.</span>
+                    </div>
                 </div>
-                <div class="control-form">
+
+                <div [ngClass]="{
+                    'control-form':true,
+                    'border-green':formUser.controls['password'].valid,
+                    'border-red':(formUser.controls['password'].dirty || formUser.controls['password'].touched) && formUser.controls['password'].invalid
+                }">
                     <label for="password">Mot de passe</label>
                     <div class="control-form__password">
-                        <div class="control-form__password__input">
-                            <input id="password" 
-                                    formControlName="password"
-                                    [type]="SHOW_HIDE_PASSWORD?'password':'text'" 
-                                    [value]="GENERATE_PASSWORD"
-                                    placeholder="Entrer votre Password.">
-                            <i *ngIf="SHOW_PASSWORD" (click)="Show_Password()" class="fas fa-eye"></i>
-                            <i *ngIf="HIDE_PASSWORD" (click)="Hide_Password()" class="fas fa-eye-slash"></i>
+                        <div class="control-form__input">
+                            <div class="control-form__input__password">
+                                <input id="password" 
+                                        formControlName="password"
+                                        [type]="SHOW_HIDE_PASSWORD?'password':'text'" 
+                                        [value]="GENERATE_PASSWORD"
+                                        placeholder="Entrer votre Password.">
+                                <i *ngIf="SHOW_PASSWORD" (click)="Show_Password()" class="fas fa-eye"></i>
+                                <i *ngIf="HIDE_PASSWORD" (click)="Hide_Password()" class="fas fa-eye-slash"></i>
+                            </div>
+                            <i  *ngIf="(formUser.controls['password'].invalid && (formUser.controls['password'].dirty || formUser.controls['password'].touched))||formUser.controls['password'].valid"
+                            [ngClass]="formUser.controls['password'].invalid && (formUser.controls['password'].dirty || formUser.controls['password'].touched)?'fas fa-exclamation-circle color-red':'fas fa-check color-green'"
+                            ></i>
                         </div>
                         <button type="button" (click)="generatePassword()">Generate</button>
                     </div>
-
+                    <div class="error" *ngIf="(formUser.controls['password'].dirty || formUser.controls['password'].touched) && formUser.controls['password'].invalid">
+                        <span *ngIf="formUser.controls['password'].getError('required')">Ce champ est obligatoire.</span>
+                        <span *ngIf="formUser.controls['password'].getError('minlength')">Ce champ doit être supérieur à 8 caractères..</span>
+                        <span *ngIf="formUser.controls['password'].getError('maxlength')">Ce champ doit être inférieur à 80 caractères.</span>
+                    </div>
+                    
                 </div>
-                <div class="control-form">
-                    <label for="ville">Ville</label>
-                    <input id="ville" type="text" formControlName="ville" placeholder="Entrer votre ville.">
-                </div>
+                
             </div>
             <div class="users__add__modal__body__right">
-                <div class="control-form">
-                    <label for="tel">Telephone</label>
-                    <input id="tel" type="text" formControlName="tel" placeholder="Entrer votre telephone.">
+                <div [ngClass]="{
+                    'control-form':true,
+                    'border-green':(formUser.controls['ville'].dirty || formUser.controls['ville'].touched) && formUser.controls['ville'].valid,
+                    'border-red':(formUser.controls['ville'].dirty || formUser.controls['ville'].touched) && formUser.controls['ville'].invalid
+                }">
+                <label for="ville">Ville</label>
+                    <div class="control-form__input">
+                        <input id="ville" type="text" formControlName="ville" placeholder="Entrer votre ville.">
+                        <i  *ngIf="(formUser.controls['ville'].invalid && (formUser.controls['ville'].dirty || formUser.controls['ville'].touched))||formUser.controls['ville'].valid"
+                            [ngClass]="formUser.controls['ville'].invalid && (formUser.controls['ville'].dirty || formUser.controls['ville'].touched)?'fas fa-exclamation-circle color-red':'fas fa-check color-green'"
+                        ></i>
+                    </div>
+                    <div class="error" *ngIf="(formUser.controls['ville'].dirty || formUser.controls['ville'].touched) && formUser.controls['ville'].invalid">
+                        <span *ngIf="formUser.controls['ville'].getError('required')">Ce champ est obligatoire.</span>
+                        <span *ngIf="formUser.controls['ville'].getError('minlength')">Ce champ doit être supérieur à 3 caractères..</span>
+                        <span *ngIf="formUser.controls['ville'].getError('maxlength')">Ce champ doit être inférieur à 29 caractères.</span>
+                    </div>
                 </div>
-                <div class="control-form">
-                    <label for="dateNaissance">Date Naissance</label>
-                    <input id="dateNaissance" type="date" formControlName="date_naissance">
+
+                <div [ngClass]="{
+                    'control-form':true,
+                    'border-green':(formUser.controls['tel'].dirty || formUser.controls['tel'].touched) && formUser.controls['tel'].valid,
+                    'border-red':(formUser.controls['tel'].dirty || formUser.controls['tel'].touched) && formUser.controls['tel'].invalid
+                }">
+                <label for="tel">Telephone</label>
+                    <div class="control-form__input">
+                        <input id="tel" type="text" formControlName="tel" placeholder="Entrer votre telephone.">
+                        <i  *ngIf="(formUser.controls['tel'].invalid && (formUser.controls['tel'].dirty || formUser.controls['tel'].touched))||formUser.controls['tel'].valid"
+                            [ngClass]="formUser.controls['tel'].invalid && (formUser.controls['tel'].dirty || formUser.controls['tel'].touched)?'fas fa-exclamation-circle color-red':'fas fa-check color-green'"
+                        ></i>
+                    </div>
+                    <div class="error" *ngIf="(formUser.controls['tel'].dirty || formUser.controls['tel'].touched) && formUser.controls['tel'].invalid">
+                        <span *ngIf="formUser.controls['tel'].getError('required')">Ce champ est obligatoire.</span>
+                        <span *ngIf="formUser.controls['tel'].getError('pattern')">Ce champ doit être numero telephone.</span>
+                        <span *ngIf="formUser.controls['tel'].getError('minlength')">Ce champ doit être supérieur à 10 caractères..</span>
+                        <span *ngIf="formUser.controls['tel'].getError('maxlength')">Ce champ doit être inférieur à 10 caractères.</span>
+                    </div>
                 </div>
+
+                <div [ngClass]="{
+                    'control-form':true,
+                    'border-green':(formUser.controls['date_naissance'].dirty || formUser.controls['date_naissance'].touched) && formUser.controls['date_naissance'].valid,
+                    'border-red':(formUser.controls['date_naissance'].dirty || formUser.controls['date_naissance'].touched) && formUser.controls['date_naissance'].invalid
+                }">
+                <label for="dateNaissance">Date Naissance</label>
+                    <div class="control-form__input">
+                        <input id="dateNaissance" type="date" formControlName="date_naissance">
+                        <i  *ngIf="(formUser.controls['date_naissance'].invalid && (formUser.controls['date_naissance'].dirty || formUser.controls['date_naissance'].touched))||formUser.controls['date_naissance'].valid"
+                            [ngClass]="formUser.controls['date_naissance'].invalid && (formUser.controls['date_naissance'].dirty || formUser.controls['date_naissance'].touched)?'fas fa-exclamation-circle color-red':'fas fa-check color-green'"
+                        ></i>
+                    </div>
+                    <div class="error" *ngIf="(formUser.controls['date_naissance'].dirty || formUser.controls['date_naissance'].touched) && formUser.controls['date_naissance'].invalid">
+                        <span *ngIf="formUser.controls['date_naissance'].getError('required')">Ce champ est obligatoire.</span>
+                    </div>
+                </div>
+
                 <div class="control-form">
                     <label for="role">Role</label>
                     <div class="control-form__role">
@@ -152,19 +268,49 @@
                         </div>
                     </div>
                 </div>
-                <div class="control-form" *ngIf="RADIO_ROLE_EMPLOYEE">
-                    <label for="salaire">Salaire</label>
-                    <input id="salaire" type="text" placeholder="Entrer votre salaire.">
+
+                <div [ngClass]="{
+                    'control-form':true,
+                    'border-green':(formUser.controls['salaire'].dirty || formUser.controls['salaire'].touched) && formUser.controls['salaire'].valid,
+                    'border-red':(formUser.controls['salaire'].dirty || formUser.controls['salaire'].touched) && formUser.controls['salaire'].invalid
+                }" *ngIf="RADIO_ROLE_EMPLOYEE">
+                <label for="salaire">Salaire</label>
+                    <div class="control-form__input">
+                        <input id="salaire" formControlName="salaire" type="text" placeholder="Entrer votre salaire.">
+                        <i  *ngIf="(formUser.controls['salaire'].invalid && (formUser.controls['salaire'].dirty || formUser.controls['salaire'].touched))||formUser.controls['salaire'].valid"
+                            [ngClass]="formUser.controls['salaire'].invalid && (formUser.controls['salaire'].dirty || formUser.controls['salaire'].touched)?'fas fa-exclamation-circle color-red':'fas fa-check color-green'"
+                        ></i>
+                    </div>
+                    <div class="error" *ngIf="(formUser.controls['salaire'].dirty || formUser.controls['salaire'].touched) && formUser.controls['salaire'].invalid">
+                        <span *ngIf="formUser.controls['salaire'].getError('required')">Ce champ est obligatoire.</span>
+                    </div>
                 </div>
-                <div class="control-form" *ngIf="RADIO_ROLE_CLIENT">
-                    <label for="adresse">Adresse</label>
-                    <textarea id="adresse" cols="30" rows="3" placeholder="Entrer votre adresse."></textarea>
+                <div [ngClass]="{
+                    'control-form':true,
+                    'border-green':(formUser.controls['adresse'].dirty || formUser.controls['adresse'].touched) && formUser.controls['adresse'].valid,
+                    'border-red':(formUser.controls['adresse'].dirty || formUser.controls['adresse'].touched) && formUser.controls['adresse'].invalid
+                }" *ngIf="RADIO_ROLE_CLIENT">
+                <label for="adresse">Adresse</label>
+                    <div class="control-form__input">
+                        <textarea id="adresse" formControlName="adresse" cols="30" rows="3" placeholder="Entrer votre adresse."></textarea>
+                        <i  *ngIf="(formUser.controls['adresse'].invalid && (formUser.controls['adresse'].dirty || formUser.controls['adresse'].touched))||formUser.controls['adresse'].valid"
+                            [ngClass]="formUser.controls['adresse'].invalid && (formUser.controls['adresse'].dirty || formUser.controls['adresse'].touched)?'fas fa-exclamation-circle color-red':'fas fa-check color-green'"
+                        ></i>
+                    </div>
+                    <div class="error" *ngIf="(formUser.controls['adresse'].dirty || formUser.controls['adresse'].touched) && formUser.controls['adresse'].invalid">
+                        <span *ngIf="formUser.controls['adresse'].getError('required')">Ce champ est obligatoire.</span>
+                        <span *ngIf="formUser.controls['adresse'].getError('minlength')">Ce champ doit être supérieur à 10 caractères..</span>
+                        <span *ngIf="formUser.controls['adresse'].getError('maxlength')">Ce champ doit être inférieur à 10 caractères.</span>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="users__add__modal__footer">
-            <button type="submit" class="bg-success">Ajouter</button>
-            <button (click)="F_Close_Box_User()" class="bg-close">Fermer</button>
+            <button type="submit" 
+                    [ngClass]="formUser.valid?'bg-success':'black'" 
+                    [disabled]="formUser.invalid"
+            >Ajouter</button>
+            <button type="button" (click)="F_Close_Box_User()" class="bg-close">Fermer</button>
         </div>
     </form>
 

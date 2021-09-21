@@ -40,9 +40,9 @@
                     
                 </div>
                 <div class="email_error" *ngIf="login.controls['password'].invalid && ( login.controls['password'].dirty || login.controls['password'].touched)">
-                    <span *ngIf="login.controls['password'].getError('required')">Ce champ est obligatoire.</span>
-                    <span *ngIf="login.controls['password'].getError('minlength')">Ce champ doit être supérieur à 8 caractères..</span>
-                    <span *ngIf="login.controls['password'].getError('maxlength')">Ce champ doit être inférieur à 99 caractères.</span>
+                        <span *ngIf="login.controls['password'].getError('required')">Ce champ est obligatoire.</span>
+                        <span *ngIf="login.controls['password'].getError('minlength')">Ce champ doit être supérieur à 8 caractères..</span>
+                        <span *ngIf="login.controls['password'].getError('maxlength')">Ce champ doit être inférieur à 99 caractères.</span>
                 </div>
             </div>
             <button type="submit" [disabled]="login.invalid" [ngClass]="login.controls['password'].valid && login.controls['email'].valid ? 'bg-green' : ''">Connexion</button>

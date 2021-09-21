@@ -74,15 +74,32 @@ export class UsersComponent implements OnInit {
   role(e:any){
     switch(e.target.value){
       case "Admin":{
+        
+        this.formUser.get('adresse')?.setValidators([])
+        this.formUser.get('adresse')?.setValue(null)
+        
+        this.formUser.get('salaire')?.setValidators([])
+        this.formUser.get('salaire')?.setValue(null)
+        
         this.RADIO_ROLE_EMPLOYEE = false;
         this.RADIO_ROLE_CLIENT = false;
         return null; 
       }
       case "Client":{
+        this.formUser.get('adresse')?.setValidators([Validators.required, Validators.minLength(8),Validators.maxLength(180)])
+        
+        this.formUser.get('salaire')?.setValidators([])
+        this.formUser.get('salaire')?.setValue(null)
+        
         this.RADIO_ROLE_EMPLOYEE = false;
         return this.RADIO_ROLE_CLIENT = true;
       }
       case "Employee":{
+        this.formUser.get('salaire')?.setValidators([Validators.required])
+        
+        this.formUser.get('adresse')?.setValidators([])
+        this.formUser.get('adresse')?.setValue(null)
+        
         this.RADIO_ROLE_CLIENT = false;
         return this.RADIO_ROLE_EMPLOYEE = true;
       }
@@ -173,6 +190,7 @@ export class UsersComponent implements OnInit {
   GENERATE_PASSWORD:string|null = null;
   generatePassword(){
     this.GENERATE_PASSWORD = Math.random().toString(30).substr(3, 15);
+    this.password()
   }
   /* End:Generate Password */
 
@@ -188,17 +206,22 @@ export class UsersComponent implements OnInit {
     cin:new FormControl(null, [Validators.required, Validators.minLength(6),Validators.maxLength(9)]),
     nom:new FormControl(null, [Validators.required, Validators.minLength(3),Validators.maxLength(14)]),
     prenom:new FormControl(null, [Validators.required, Validators.minLength(3),Validators.maxLength(19)]),
-    email:new FormControl(null, [Validators.required, Validators.email, Validators.minLength(8),Validators.maxLength(180)]),
-    password:new FormControl(this.GENERATE_PASSWORD, [Validators.required, Validators.minLength(8), Validators.maxLength(80)]),
-    ville:new FormControl(null, [Validators.required, Validators.maxLength(29)]),
-    tel:new FormControl(null, [Validators.required, Validators.minLength(10), Validators.maxLength(10)]),
+    email:new FormControl(null, [Validators.required, Validators.email, Validators.maxLength(180)]),
+    password:new FormControl(null, [Validators.required, Validators.minLength(8), Validators.maxLength(80)]),
+    ville:new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(29)]),
+    tel:new FormControl(null, [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern("^([0-9]$")]),
     date_naissance:new FormControl(null, [Validators.required]),
-    role:new FormControl("Admin", [Validators.required])
-  },)
+    role:new FormControl("Admin", [Validators.required]),
+    salaire:new FormControl(null),
+    adresse:new FormControl(null)
+  });
+  
+  password(){
+      this.formUser.get('password')?.setValue(this.GENERATE_PASSWORD);
+  }
+
   F_Add_New_User(){
-    console.log(this.formUser.value);
-    console.log(true);
-    
+    console.log(this.formUser.value)
   }
   /* End: Add New User */
 
