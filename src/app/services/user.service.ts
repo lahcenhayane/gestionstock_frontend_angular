@@ -29,4 +29,8 @@ export class UserService {
     return this._http.get<UsersPages>(`${this._URL}/search?email=${email}&page=${page}`);
   }
 
+  deleteUser(id:any){
+    return this._http.delete(`${this._URL}/${id}`);
+  }
+
 }

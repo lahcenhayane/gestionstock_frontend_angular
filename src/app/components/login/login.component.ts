@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
   connexion(){
     this.loginService.login(this.login.value).subscribe(
       res => this.saveToken(res),
-      err => console.log("Email ou mot de passe n'est pas cerrect.")
+      err => console.log(err.message)
     )
   }
 

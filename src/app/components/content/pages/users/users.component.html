@@ -1,5 +1,5 @@
 <div class="users">
-    <div class="users__header" *ngIf="open">
+    <div class="users__header" *ngIf="OPEN">
         <h3>Total Utilisateurs: {{ totalRow }}</h3>
         <div class="users_header__middle">
             <button [ngClass]="{'active':ROLE==''}" (click)="getAllUser(0, '')">Tous</button>
@@ -8,11 +8,11 @@
             <button [ngClass]="{'active':ROLE=='Employee'}" (click)="getAllUser(0, 'Employee')">Employées</button>
         </div>
         <div class="users__header__right">
-            <button (click)="Open_Box_User()"><i class="fas fa-user-plus"></i></button>
+            <button (click)="F_Open_Box_Add_User()"><i class="fas fa-user-plus"></i></button>
             <button (click)="openSearch()"><i class="fas fa-search"></i></button>
         </div>
     </div>
-    <div class="users__header__search" *ngIf="!open">
+    <div class="users__header__search" *ngIf="!OPEN">
         <div class="search">
             <i class="fas fa-search"></i>
             <input (keyup)="search($event, 0)" type="text" placeholder="Chercher par email">
@@ -41,7 +41,7 @@
                     <span class="NoActif" *ngIf="item.supprimer">Pas Actif</span>
                 </td>
                 <td>
-                    <button class="users_table_btn"><i class="fas fa-trash-alt"></i></button>
+                    <button (click)="F_Open_Box_Delete(item)" class="users_table_btn"><i class="fas fa-trash-alt"></i></button>
                     <button class="users_table_btn"><i class="fas fa-user-edit"></i></button>
                     <button class="users_table_btn"><i class="fas fa-eye"></i></button>
                 </td>
@@ -67,19 +67,117 @@
 
 
 <!-- Modal Add New User -->
-<div class="users__add" *ngIf="Box_Add_New_User">
-    <button (click)="Close_Box_User()"><i class="fas fa-times"></i></button>
-    <div class="users__add__modal">
+<div class="users__add" *ngIf="Open_Box">
+    <button (click)="F_Close_Box_User()"><i class="fas fa-times"></i></button>
+    <form [formGroup]="formUser" (ngSubmit)="F_Add_New_User()" class="users__add__modal" *ngIf="Open_Box_Add_User">
         <div class="users__add__modal__header">
             Ajouter Nouveau Utilisateur
         </div>
+        {{ formUser.value | json }}
         <div class="users__add__modal__body">
-            <div class="users__add__modal__body__left">Left</div>
-            <div class="users__add__modal__body__right">right</div>
+            <div class="users__add__modal__body__left">
+                <div class="control-form">
+                    <label for="cin">Cin</label>
+                    <input id="cin" type="text" formControlName="cin" placeholder="Entrer votre CIN.">
+                </div>
+                <div class="control-form">
+                    <label for="nom">Nom</label>
+                    <input id="nom" type="text" formControlName="nom" placeholder="Entrer votre nom.">
+                </div>
+                <div class="control-form">
+                    <label for="prenom">Prenom</label>
+                    <input id="prenom" type="text" formControlName="prenom" placeholder="Entrer votre prenom.">
+                </div>
+                <div class="control-form">
+                    <label for="email">Email</label>
+                    <input id="email" type="email" formControlName="email" placeholder="Entrer votre email.">
+                </div>
+                <div class="control-form">
+                    <label for="password">Mot de passe</label>
+                    <div class="control-form__password">
+                        <div class="control-form__password__input">
+                            <input id="password" 
+                                    formControlName="password"
+                                    [type]="SHOW_HIDE_PASSWORD?'password':'text'" 
+                                    [value]="GENERATE_PASSWORD"
+                                    placeholder="Entrer votre Password.">
+                            <i *ngIf="SHOW_PASSWORD" (click)="Show_Password()" class="fas fa-eye"></i>
+                            <i *ngIf="HIDE_PASSWORD" (click)="Hide_Password()" class="fas fa-eye-slash"></i>
+                        </div>
+                        <button type="button" (click)="generatePassword()">Generate</button>
+                    </div>
+
+                </div>
+                <div class="control-form">
+                    <label for="ville">Ville</label>
+                    <input id="ville" type="text" formControlName="ville" placeholder="Entrer votre ville.">
+                </div>
+            </div>
+            <div class="users__add__modal__body__right">
+                <div class="control-form">
+                    <label for="tel">Telephone</label>
+                    <input id="tel" type="text" formControlName="tel" placeholder="Entrer votre telephone.">
+                </div>
+                <div class="control-form">
+                    <label for="dateNaissance">Date Naissance</label>
+                    <input id="dateNaissance" type="date" formControlName="date_naissance">
+                </div>
+                <div class="control-form">
+                    <label for="role">Role</label>
+                    <div class="control-form__role">
+                        <div class="control-form__role__item">
+                            <input id="admin" name="role" 
+                                   formControlName="role"
+                                   (change)="role($event)"
+                                   type="radio"
+                                   value="Admin"
+                                   checked=checked>
+                            <label for="admin">Admin</label>
+                        </div>
+                        <div class="control-form__role__item">
+                            <input id="client" name="role" 
+                                   formControlName="role"
+                                   (change)="role($event)" 
+                                   type="radio"
+                                   value="Client">
+                            <label for="client">Client</label>
+                        </div>
+                        <div class="control-form__role__item">
+                            <input id="employee" name="role" 
+                                   formControlName="role"
+                                   (change)="role($event)"
+                                   type="radio" 
+                                   value="Employee">
+                            <label for="employee">Employee</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="control-form" *ngIf="RADIO_ROLE_EMPLOYEE">
+                    <label for="salaire">Salaire</label>
+                    <input id="salaire" type="text" placeholder="Entrer votre salaire.">
+                </div>
+                <div class="control-form" *ngIf="RADIO_ROLE_CLIENT">
+                    <label for="adresse">Adresse</label>
+                    <textarea id="adresse" cols="30" rows="3" placeholder="Entrer votre adresse."></textarea>
+                </div>
+            </div>
         </div>
         <div class="users__add__modal__footer">
-            <button class="bg-success">Ajouter</button>
-            <button class="bg-close">Fermer</button>
+            <button type="submit" class="bg-success">Ajouter</button>
+            <button (click)="F_Close_Box_User()" class="bg-close">Fermer</button>
+        </div>
+    </form>
+
+    <div class="users__delete__modal" *ngIf="Open_Box_Delete_User">
+        <div class="users__delete__modal__header">
+            Supprimer l'utilisateur
+        </div>
+        <div class="users__delete__modal__middle">
+            <h3>Voulez-vous vraiment supprimer cette personne?</h3>
+        </div>
+        <div class="users__delete__modal__footer">
+            <button (click)="delete()" class="bg-success">Oui</button>
+            <button (click)="F_Close_Box_User()" class="bg-close">Non</button>
         </div>
     </div>
 </div>

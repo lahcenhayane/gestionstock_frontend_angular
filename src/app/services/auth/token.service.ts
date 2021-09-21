@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -5,7 +6,7 @@ import { Injectable } from '@angular/core';
 })
 export class TokenService {
 
-  constructor() { }
+  constructor(private router:Router) { }
 
 
   saveToken(data:any){
@@ -88,10 +89,12 @@ export class TokenService {
     return this.isValid();
   }
 
-  expTimeLogout(exp:number){
+  expTimeLogout(){
     setTimeout(()=>{
       this.removeToken();
-    }, exp);
+      this.router.navigateByUrl('/login')
+      return false;
+    }, this.getExpirationDate());
   }
 
 }

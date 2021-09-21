@@ -245,12 +245,12 @@
     display: flex;
     flex-direction: column;
     border: 2px solid #0b60af;
-    /* overflow-y: scroll; */
+    overflow-y: scroll;
 }
 .users__add__modal__header,
-.users__add__modal__footer{
+.users__add__modal__footer
+{
     background-color: #0b60af;
-    
 }
 .users__add__modal__header{
     color: white;
@@ -289,8 +289,145 @@
 .users__add__modal__body{
     display: flex;
     justify-content: space-between;
+    padding: 15px;
 }
 .users__add__modal__body__left,
 .users__add__modal__body__right{
+    display: flex;
+    flex-direction: column;
+    flex: .5;
+    padding: 3px;
+}
+.control-form{
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    padding: 8px;
+    border-radius: 15px;
+    background-color: white;
+}
+.control-form>label{
+    font-size: 13.5px;
+    margin-left: 4px;
+}
+.control-form>input{
+    outline: none;
+    background-color: #eee;
+    border: none;
+    padding: 5px 4px;
+    border-radius: 5px;
+}
+.control-form__password{
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+}
+.control-form__password>button{
+    border: none;
+    outline: none;
+    padding: 0 10px;
+    background-color: lightgrey;
+    cursor: pointer;
+}
+.control-form__password>button:hover{
+    background-color: grey;
+    color: white;
+}
+.users__add__modal__body__left .control-form__password__input{
+    margin-right: 2px;
+    display: flex;
+    flex: 1;
+    align-items: center;
+    background-color: #eee;
+    border-radius: 5px;
+}
+
+.users__add__modal__body__left .control-form__password__input > input{
+    flex: 1;
+    outline: none;
+    border: none;
+    padding: 5px 4px;
+    background-color: #eee;
+}
+.users__add__modal__body__left .control-form__password__input > i{
+    border: none;
+    margin: 0 2px;
+    padding: 0 4px;
+    cursor: pointer;
+    color: gray;
+}
+
+.control-form__role{
+    display: flex;
+    justify-content: space-evenly;
     
+}
+.control-form__role__item{
+    display: flex;
+    background-color: #eee;
+    padding: 5px 20px;
+    border-radius: 5px;
+}
+.control-form__role__item>label{
+    margin-left: 4px;
+    font-size: 13px;
+}
+.control-form>textarea{
+    resize: none;
+    background-color: #eee;
+    padding: 5px 4px;
+    border-radius: 5px;
+    font-family: Roboto, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border: none;
+    outline: none;
+    font-size: 13.5px;
+    
+}
+
+
+/* Modal Delete User */
+.users__delete__modal{
+    position: absolute;
+    z-index: 902;
+    width: 350px;
+    height: 130px;
+    top: 35%;
+    left: 38%;
+    background-color: whitesmoke;
+    display: flex;
+    flex-direction: column;
+    border: 2.5 solid rgb(189, 23, 23) !important;
+}
+
+.users__delete__modal__header,
+.users__delete__modal__footer{
+    background-color: rgb(189, 23, 23);
+}
+.users__delete__modal__header{
+    padding: 6px;
+    color: white;
+    text-align: center;
+}
+.users__delete__modal__middle{
+    flex: 1;
+    padding: 10px;
+}
+
+.users__delete__modal__footer{
+    display: flex;
+    justify-content: end;
+    padding: 4px 0;
+}
+.users__delete__modal__footer>button{
+    padding: 3px 28px;
+    margin: 0 4px;
+    border: none;
+    outline: none;
+    color: white;
+    background-color: rgb(105, 18, 18);
+    cursor: pointer;
+}
+.users__delete__modal__footer>button:last-child{
+    background-color: rgb(97, 2, 2);
 }
