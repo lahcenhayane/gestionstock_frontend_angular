@@ -14,6 +14,7 @@ export class UserService {
   constructor(private _http:HttpClient) { }
   
   private readonly _URL = environment.url_admins;
+  private readonly _URL_USERS = environment.url_users
 
   /**
    * Get All Users
@@ -31,6 +32,10 @@ export class UserService {
 
   deleteUser(id:any){
     return this._http.delete(`${this._URL}/${id}`);
+  }
+
+  createNewUser(data:Users){
+    return this._http.post(`${this._URL_USERS}`, data)
   }
 
 }

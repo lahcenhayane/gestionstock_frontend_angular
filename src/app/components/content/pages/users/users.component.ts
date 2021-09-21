@@ -54,7 +54,7 @@ export class UsersComponent implements OnInit {
 
 
 
-  /* Start: Open Clox Box User */
+  /* Start: Open Close Box User */
   Open_Box:boolean = false;
   F_Open_Box_User(){
     this.Open_Box = true
@@ -64,7 +64,7 @@ export class UsersComponent implements OnInit {
     this.Open_Box_Delete_User = false
     this.Open_Box_Add_User = false
   }
-  /* End: Open Box User */
+  /* End: Open Close Box User */
 
 
 
@@ -74,37 +74,38 @@ export class UsersComponent implements OnInit {
   role(e:any){
     switch(e.target.value){
       case "Admin":{
+        this.formUser.controls['client'].get('adresse')?.setValidators(null)
+        this.formUser.controls['client'].get('adresse')?.setValue(null)
         
-        this.formUser.get('adresse')?.setValidators([])
-        this.formUser.get('adresse')?.setValue(null)
-        
-        this.formUser.get('salaire')?.setValidators([])
-        this.formUser.get('salaire')?.setValue(null)
+        this.formUser.controls['employee'].get('salaire')?.setValidators(null)
+        this.formUser.controls['employee'].get('salaire')?.setValue(null)
         
         this.RADIO_ROLE_EMPLOYEE = false;
         this.RADIO_ROLE_CLIENT = false;
-        return null; 
+        break;
       }
       case "Client":{
-        this.formUser.get('adresse')?.setValidators([Validators.required, Validators.minLength(8),Validators.maxLength(180)])
+        this.formUser.controls['client'].get('adresse')?.setValidators([Validators.required, Validators.minLength(8),Validators.maxLength(180)])
         
-        this.formUser.get('salaire')?.setValidators([])
-        this.formUser.get('salaire')?.setValue(null)
-        
+        this.formUser.controls['employee'].get('salaire')?.setValidators(null)
+        this.formUser.controls['employee'].get('salaire')?.setValue(null)
+
         this.RADIO_ROLE_EMPLOYEE = false;
-        return this.RADIO_ROLE_CLIENT = true;
+        this.RADIO_ROLE_CLIENT = true;
+        break;
       }
       case "Employee":{
-        this.formUser.get('salaire')?.setValidators([Validators.required])
+        this.formUser.controls['employee'].get('salaire')?.setValidators([Validators.required, Validators.pattern("^[0-9]*[.]?[0-9]+$")])
         
-        this.formUser.get('adresse')?.setValidators([])
-        this.formUser.get('adresse')?.setValue(null)
+        this.formUser.controls['client'].get('adresse')?.setValidators(null)
+        this.formUser.controls['client'].get('adresse')?.setValue(null)
         
+        this.RADIO_ROLE_EMPLOYEE = true;
         this.RADIO_ROLE_CLIENT = false;
-        return this.RADIO_ROLE_EMPLOYEE = true;
+        break;
       }
       default:
-        return null;
+        return;
     }
   }
   /* End:Choose Role you want? */
@@ -209,19 +210,31 @@ export class UsersComponent implements OnInit {
     email:new FormControl(null, [Validators.required, Validators.email, Validators.maxLength(180)]),
     password:new FormControl(null, [Validators.required, Validators.minLength(8), Validators.maxLength(80)]),
     ville:new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(29)]),
-    tel:new FormControl(null, [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern("^([0-9]$")]),
+    tel:new FormControl(null, [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern("^[0][5-7][0-9]*$")]),
     date_naissance:new FormControl(null, [Validators.required]),
     role:new FormControl("Admin", [Validators.required]),
-    salaire:new FormControl(null),
-    adresse:new FormControl(null)
+    employee:new FormGroup({
+      salaire:new FormControl(null,[])
+    }),
+    client:new FormGroup({
+      adresse:new FormControl(null,[])
+    })
   });
   
   password(){
       this.formUser.get('password')?.setValue(this.GENERATE_PASSWORD);
   }
-
   F_Add_New_User(){
     console.log(this.formUser.value)
+    
+    this._userService.createNewUser(this.formUser.value).subscribe(
+      res => {
+        [res, ...this.users];
+        this.totalRow++;
+        this.F_Close_Box_User();
+      }
+    )
+
   }
   /* End: Add New User */
 

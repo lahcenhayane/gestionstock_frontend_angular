@@ -1,3 +1,4 @@
+import { Employees } from './Employees';
 import { Clients } from './Clients';
 import { Roles } from './Roles';
 export interface Users{
@@ -11,7 +12,8 @@ export interface Users{
     tel:string,
     date_naissance:Date,
     role:Roles
-    supprimer:Date
+    supprimer?:Date
 
-    cleint:Clients
+    client?:Clients
+    employee?:Employees
 }
