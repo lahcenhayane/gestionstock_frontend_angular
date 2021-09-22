@@ -1,3 +1,4 @@
+import { Sexe } from './../../../../models/Sexe';
 import { DataState, DataStateEnum } from './../../../../state/state';
 
 import { UsersPages } from './../../../../models/ListsPage/UsersPages'
@@ -211,7 +212,8 @@ export class UsersComponent implements OnInit {
     password:new FormControl(null, [Validators.required, Validators.minLength(8), Validators.maxLength(80)]),
     ville:new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(29)]),
     tel:new FormControl(null, [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern("^[0][5-7][0-9]*$")]),
-    date_naissance:new FormControl(null, [Validators.required]),
+    dateNaissance:new FormControl(null, [Validators.required]),
+    sexe:new FormControl("Homme", [Validators.required]),
     role:new FormControl("Admin", [Validators.required]),
     employee:new FormGroup({
       salaire:new FormControl(null,[])
@@ -221,6 +223,14 @@ export class UsersComponent implements OnInit {
     })
   });
   
+  // F_EMPTY_ALL_FORM_USER(){
+  //   this.formUser.valueChanges.subscribe(
+  //     res=>{
+  //       res.
+  //     }
+  //   )
+  // }
+
   password(){
       this.formUser.get('password')?.setValue(this.GENERATE_PASSWORD);
   }

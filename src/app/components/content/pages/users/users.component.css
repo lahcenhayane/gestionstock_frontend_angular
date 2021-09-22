@@ -369,7 +369,7 @@
 
 .control-form__role{
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     
 }
 .control-form__role__item{
@@ -377,6 +377,7 @@
     background-color: #eee;
     padding: 5px 20px;
     border-radius: 5px;
+    margin: 0 10px;
 }
 .control-form__role__item>label{
     margin-left: 4px;
@@ -480,4 +481,56 @@
 .control-form__input>textarea{
     resize: none;
     overflow-y: scroll;
+}
+.control-form__input__Radio{
+    display: flex;
+    flex: 1;
+    align-items: center;
+    
+}
+.control-form__input__Radio_Sexe_Global{
+    display: flex;
+    flex: 1;
+}
+.control-form__input__Radio_Sexe{
+    margin: 5px 15px;
+}
+.control-form__input__Radio_Sexe>label{
+    display: flex;
+    flex-direction: column;
+    background-color: #eee;
+    padding: 5px 20px;
+    align-items: center;
+    cursor: pointer;
+    padding-top: 15px;
+    position: relative;
+    z-index: 100;
+}
+.control-form__input__Radio_Sexe>label>i:first-child{
+    font-size: 18px;
+}
+.control-form__input__Radio_Sexe>input{
+    display: none;
+}
+.control-form__input__Radio_Sexe>label>.fa-check-circle{
+    position: absolute;
+    top: -8px;
+    display: none;
+}
+.control-form__input__Radio_Sexe>input:checked+label{
+    background-color: #ddd;
+    color: green;
+    
+}
+.control-form__input__Radio_Sexe>input:checked+label>i:last-child{
+    display: block;
+    z-index: 1005;
+}
+
+.form__role{
+    display: flex;
+}
+
+.control-form__role-all{
+    display: flex;
 }

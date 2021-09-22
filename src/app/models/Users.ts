@@ -1,3 +1,4 @@
+import { Sexe } from './Sexe';
 import { Employees } from './Employees';
 import { Clients } from './Clients';
 import { Roles } from './Roles';
@@ -10,7 +11,8 @@ export interface Users{
     password?:string,
     ville:string,
     tel:string,
-    date_naissance:Date,
+    dateNaissance:Date,
+    sexe:Sexe,
     role:Roles
     supprimer?:Date
 
