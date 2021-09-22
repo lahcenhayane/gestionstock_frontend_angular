@@ -1,5 +1,4 @@
 import { UsersPages } from './../models/ListsPage/UsersPages';
-import { Roles } from './../models/Roles';
 import { Users } from './../models/Users';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';

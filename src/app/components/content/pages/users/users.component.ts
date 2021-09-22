@@ -1,13 +1,10 @@
-import { Sexe } from './../../../../models/Sexe';
-import { DataState, DataStateEnum } from './../../../../state/state';
+import { TokenService } from './../../../../services/auth/token.service';
 
-import { UsersPages } from './../../../../models/ListsPage/UsersPages'
 import { Component, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { catchError, map, startWith } from 'rxjs/operators';
 import { UserService } from 'src/app/services/user.service';
 import { Users } from 'src/app/models/Users';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+
 
 @Component({
   selector: 'app-users',
@@ -16,7 +13,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class UsersComponent implements OnInit {
 
-  constructor(private _userService:UserService) { }
+  constructor(private _userService:UserService, private tokenService:TokenService) { }
 
   ngOnInit(): void {
     this.getAllUser(0, "")
@@ -59,11 +56,15 @@ export class UsersComponent implements OnInit {
   Open_Box:boolean = false;
   F_Open_Box_User(){
     this.Open_Box = true
+    this.RADIO_ROLE_CLIENT = false;
+    this.RADIO_ROLE_EMPLOYEE = false;
   }
   F_Close_Box_User(){
+    this.OPEN_EDIT=false
     this.Open_Box = false
     this.Open_Box_Delete_User = false
     this.Open_Box_Add_User = false
+    this.F_EMPTY_ALL_FORM_USER()
   }
   /* End: Open Close Box User */
 
@@ -118,7 +119,7 @@ export class UsersComponent implements OnInit {
     if (this.ROLE != _role) {
       this.PAGE = 1;//Current Number Pagination
     }
-
+    
     this.ROLE = _role
     this._userService.getAllUser(page, this.ROLE).subscribe(
       res => {
@@ -213,7 +214,7 @@ export class UsersComponent implements OnInit {
     ville:new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(29)]),
     tel:new FormControl(null, [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern("^[0][5-7][0-9]*$")]),
     dateNaissance:new FormControl(null, [Validators.required]),
-    sexe:new FormControl("Homme", [Validators.required]),
+    gendre:new FormControl("Homme", [Validators.required]),
     role:new FormControl("Admin", [Validators.required]),
     employee:new FormGroup({
       salaire:new FormControl(null,[])
@@ -223,18 +224,39 @@ export class UsersComponent implements OnInit {
     })
   });
   
-  // F_EMPTY_ALL_FORM_USER(){
-  //   this.formUser.valueChanges.subscribe(
-  //     res=>{
-  //       res.
-  //     }
-  //   )
-  // }
+  
+  F_EMPTY_ALL_FORM_USER(){
+    
+    this.formUser.get('cin')?.setValue(null);
+    this.formUser.get('nom')?.setValue(null);
+    this.formUser.get('prenom')?.setValue(null);
+    this.formUser.get('email')?.setValue(null);
+    this.formUser.get('password')?.setValue(null);
+    this.formUser.get('ville')?.setValue(null);
+    this.formUser.get('tel')?.setValue(null);
+    this.formUser.get('dateNaissance')?.setValue(null);
+    this.formUser.get('gendre')?.setValue("Homme");
+    this.formUser.get('role')?.setValue("Admin");
+    this.formUser.controls['employee'].get('salaire')?.setValue(null);
+    this.formUser.controls['client'].get('adresse')?.setValue(null);
+  }
+
+  F_VALIDATE_DATE(){
+    
+    if (new Date() < this.formUser.get('dateNaissance')?.value) {
+      return false;
+    }
+    return true;
+  }
 
   password(){
       this.formUser.get('password')?.setValue(this.GENERATE_PASSWORD);
   }
   F_Add_New_User(){
+    this.formUser.get('dateNaissance')?.value;
+    console.log();
+    console.log(new Date().toString);
+    
     console.log(this.formUser.value)
     
     this._userService.createNewUser(this.formUser.value).subscribe(
@@ -242,6 +264,7 @@ export class UsersComponent implements OnInit {
         [res, ...this.users];
         this.totalRow++;
         this.F_Close_Box_User();
+        this.F_EMPTY_ALL_FORM_USER();
       }
     )
 
@@ -266,10 +289,105 @@ export class UsersComponent implements OnInit {
         this.ID_DELETE_USERL = 0;
         this.totalRow--;
         this.F_Close_Box_User()
+        this.F_CLOSE_BOX_INFO_USER()
       }
     );
   }
   /* End: Delete User */
+
+
+  /* Start:Show User */
+  user:Users = {
+    id:-1,
+    cin:'',
+    nom:'',
+    prenom:'',
+    email:'',
+    password:'',
+    ville:'',
+    tel:'',
+    dateNaissance:new Date,
+    gendre:'',
+    role:'',
+
+    client:{
+      id:-1,
+      adresse:''
+    },
+    employee:{
+      id:-1,
+      salaire:-1
+    }
+  };
+
+  OPEN_CLOSE_BOX_INFO_USER:boolean = false
+  F_CLOSE_BOX_INFO_USER(){
+    this.OPEN_CLOSE_BOX_INFO_USER = false
+  }
+  F_OPEN_BOX_INFO_USER(){
+    this.OPEN_CLOSE_BOX_INFO_USER = true
+  }
+  F_SHOW_USER(item:Users){
+    this.F_OPEN_BOX_INFO_USER()
+    return this.user = item;
+  }
+  
+  /* Start:Show User */
+
+
+
+  /* Start: Edit User */
+  id?:number = 0;
+  OPEN_EDIT:boolean =false;
+  F_EDIT_USER(user:Users){
+    this.F_Open_Box_Add_User()
+    this.OPEN_EDIT = true
+
+    this.id = user.id;
+    this.formUser.get('cin')?.setValue(user.cin);
+    this.formUser.get('nom')?.setValue(user.nom);
+    this.formUser.get('prenom')?.setValue(user.prenom);
+    this.formUser.get('email')?.setValue(user.email);
+    this.formUser.get('password')?.setValue(null);
+    this.formUser.get('ville')?.setValue(user.ville);
+    this.formUser.get('tel')?.setValue(user.tel);
+    this.formUser.get('dateNaissance')?.setValue(user.dateNaissance);
+    this.formUser.get('gendre')?.setValue(user.gendre);
+
+    this.formUser.get('role')?.setValue(user.role);
+    
+    if (user.role == "Employee") {
+      this.formUser.controls['employee'].get('salaire')?.setValue(user.employee?.salaire);
+      this.RADIO_ROLE_EMPLOYEE = true;
+      this.RADIO_ROLE_CLIENT = false;
+    }
+    if (user.role == "Client") {
+      this.formUser.controls['client'].get('adresse')?.setValue(user.client?.adresse);
+      this.RADIO_ROLE_CLIENT = true;
+      this.RADIO_ROLE_EMPLOYEE = false;
+    }
+    if (user.role == "Admin") {
+      this.formUser.controls['employee'].get('salaire')?.setValue(null)
+      this.formUser.controls['client'].get('adresse')?.setValue(null)
+      this.RADIO_ROLE_CLIENT = false;
+      this.RADIO_ROLE_EMPLOYEE = false;
+    }
+  }
+  F_MODIFIER_USER(){
+    console.log(this.id);
+    
+  }
+  
+  /* End: Edit User */
+  onSubmit(){
+    if (this.OPEN_EDIT) {
+      this.F_MODIFIER_USER()
+    }
+    if (!this.OPEN_EDIT) {
+      this.F_Add_New_User()
+    }
+  }
+
 
 }
 
