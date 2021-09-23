@@ -7,7 +7,8 @@ export const environment = {
   production: false,
   url:"http://localhost:8080",
   url_admins:"http://localhost:8080/api/admins",
-  url_users:"http://localhost:8080/api/users"
+  url_users:"http://localhost:8080/api/users",
+  url_products:"http://localhost:8080/api/products"
 };
 
 /*

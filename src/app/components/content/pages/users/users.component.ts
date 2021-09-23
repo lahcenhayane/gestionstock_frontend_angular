@@ -76,11 +76,13 @@ export class UsersComponent implements OnInit {
   role(e:any){
     switch(e.target.value){
       case "Admin":{
-        this.formUser.controls['client'].get('adresse')?.setValidators(null)
-        this.formUser.controls['client'].get('adresse')?.setValue(null)
-        
-        this.formUser.controls['employee'].get('salaire')?.setValidators(null)
-        this.formUser.controls['employee'].get('salaire')?.setValue(null)
+        if (!this.OPEN_EDIT) {
+          this.formUser.controls['client'].get('adresse')?.setValidators(null)
+          this.formUser.controls['client'].get('adresse')?.setValue(null)
+          
+          this.formUser.controls['employee'].get('salaire')?.setValidators(null)
+          this.formUser.controls['employee'].get('salaire')?.setValue(null)
+        }
         
         this.RADIO_ROLE_EMPLOYEE = false;
         this.RADIO_ROLE_CLIENT = false;
@@ -88,20 +90,20 @@ export class UsersComponent implements OnInit {
       }
       case "Client":{
         this.formUser.controls['client'].get('adresse')?.setValidators([Validators.required, Validators.minLength(8),Validators.maxLength(180)])
-        
-        this.formUser.controls['employee'].get('salaire')?.setValidators(null)
-        this.formUser.controls['employee'].get('salaire')?.setValue(null)
-
+        if (!this.OPEN_EDIT) {
+          this.formUser.controls['employee'].get('salaire')?.setValidators(null)
+          this.formUser.controls['employee'].get('salaire')?.setValue(null)
+        }
         this.RADIO_ROLE_EMPLOYEE = false;
         this.RADIO_ROLE_CLIENT = true;
         break;
       }
       case "Employee":{
         this.formUser.controls['employee'].get('salaire')?.setValidators([Validators.required, Validators.pattern("^[0-9]*[.]?[0-9]+$")])
-        
-        this.formUser.controls['client'].get('adresse')?.setValidators(null)
-        this.formUser.controls['client'].get('adresse')?.setValue(null)
-        
+        if (!this.OPEN_EDIT) {
+          this.formUser.controls['client'].get('adresse')?.setValidators(null)
+          this.formUser.controls['client'].get('adresse')?.setValue(null)
+        }
         this.RADIO_ROLE_EMPLOYEE = true;
         this.RADIO_ROLE_CLIENT = false;
         break;
@@ -253,15 +255,10 @@ export class UsersComponent implements OnInit {
       this.formUser.get('password')?.setValue(this.GENERATE_PASSWORD);
   }
   F_Add_New_User(){
-    this.formUser.get('dateNaissance')?.value;
-    console.log();
-    console.log(new Date().toString);
-    
-    console.log(this.formUser.value)
     
     this._userService.createNewUser(this.formUser.value).subscribe(
       res => {
-        [res, ...this.users];
+        this.users = [res, ...this.users];
         this.totalRow++;
         this.F_Close_Box_User();
         this.F_EMPTY_ALL_FORM_USER();
@@ -298,7 +295,7 @@ export class UsersComponent implements OnInit {
 
   /* Start:Show User */
   user:Users = {
-    id:-1,
+    id:0,
     cin:'',
     nom:'',
     prenom:'',
@@ -316,7 +313,7 @@ export class UsersComponent implements OnInit {
     },
     employee:{
       id:-1,
-      salaire:-1
+      salaire:0
     }
   };
 
@@ -348,7 +345,7 @@ export class UsersComponent implements OnInit {
     this.formUser.get('nom')?.setValue(user.nom);
     this.formUser.get('prenom')?.setValue(user.prenom);
     this.formUser.get('email')?.setValue(user.email);
-    this.formUser.get('password')?.setValue(null);
+    this.formUser.get('password')?.setValue('');
     this.formUser.get('ville')?.setValue(user.ville);
     this.formUser.get('tel')?.setValue(user.tel);
     this.formUser.get('dateNaissance')?.setValue(user.dateNaissance);
@@ -367,14 +364,33 @@ export class UsersComponent implements OnInit {
       this.RADIO_ROLE_EMPLOYEE = false;
     }
     if (user.role == "Admin") {
-      this.formUser.controls['employee'].get('salaire')?.setValue(null)
-      this.formUser.controls['client'].get('adresse')?.setValue(null)
       this.RADIO_ROLE_CLIENT = false;
       this.RADIO_ROLE_EMPLOYEE = false;
     }
   }
   F_MODIFIER_USER(){
-    console.log(this.id);
+ 
+    this._userService.editUser(this.id, this.formUser.value).subscribe(
+      ()=>{
+        console.log(this.formUser.value);
+        this.users.map(user => {
+          if (user.id == this.id) {
+            user.cin = this.formUser.get('cin')?.value
+            user.nom = this.formUser.get('nom')?.value
+            user.prenom = this.formUser.get('prenom')?.value
+            user.email = this.formUser.get('email')?.value
+            user.ville = this.formUser.get('ville')?.value
+            user.tel = this.formUser.get('tel')?.value
+            user.dateNaissance = this.formUser.get('dateNaissance')?.value
+            user.gendre = this.formUser.get('gendre')?.value
+            user.role = this.formUser.get('role')?.value  
+          }
+        })
+        this.F_Close_Box_User()
+        this.F_CLOSE_BOX_INFO_USER()
+      },
+      err=>console.log(err)
+    )
     
   }
   

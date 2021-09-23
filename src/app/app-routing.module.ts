@@ -7,6 +7,9 @@ import { RouterModule, Routes, CanActivate } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { AuthGuard } from './guards/auth.guard';
+import { ProductsComponent } from './components/content/pages/products/products.component';
+import { CategoriesComponent } from './components/content/pages/categories/categories.component';
+import { OrdersComponent } from './components/content/pages/orders/orders.component';
 
 const routes: Routes = [
   { path:"login", component:LoginComponent, canActivate:[AuthLoginGuard] },
@@ -23,6 +26,18 @@ const routes: Routes = [
           { path:"", component:UsersComponent },
         ]
       },
+      {
+        path:"products",
+        component:ProductsComponent
+      },
+      {
+        path:"categories",
+        component:CategoriesComponent
+      },
+      {
+        path:"orders",
+        component:OrdersComponent
+      }
     ],
     canActivate:[AuthGuard]
   },

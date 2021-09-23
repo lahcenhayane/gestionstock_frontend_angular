@@ -34,7 +34,11 @@ export class UserService {
   }
 
   createNewUser(data:Users){
-    return this._http.post(`${this._URL_USERS}`, data)
+    return this._http.post<Users>(`${this._URL_USERS}`, data)
+  }
+
+  editUser(id:any, user:any){
+    return this._http.put(`${this._URL_USERS}/${id}`, user)
   }
 
 }

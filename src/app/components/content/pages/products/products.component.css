@@ -1,0 +1,240 @@
+.products{
+    border: 1px solid rgb(197, 197, 197);
+}
+.users__header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    padding: 6px 10px;
+}
+
+
+
+.users__header>h3{
+    font-weight: bold;
+    color: #1864AB;
+}
+
+.users_header__middle{
+    display: flex;
+    align-items: center;
+}
+.users_header__middle{
+    flex: 0.6;
+}
+
+.users__header__right{
+    display: flex;
+    justify-items: center;
+}
+.users__header__right>button{
+    border: none;
+    outline: none;
+    margin: 0 4px;
+    color: #1864AB;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    background-color: inherit;
+}
+.users__header__right>button:hover{
+    background-color: #1864AB;
+    color: white;
+}
+.users__header__right>button:last-child,
+.users__header__search>button{
+    padding: 10px 13px;
+}
+
+.users__header__search>button{
+    border: none;
+    outline: none;
+    margin: 0 4px;
+    padding: 10px 15px;
+    border-radius: 50%;
+    cursor: pointer;
+    background-color: inherit;
+    color: #1864AB;
+}
+.users__header__search>button:hover{
+    background-color: #1864AB;
+    color: white;
+}
+
+
+.users__header__search,
+.users_header__middle{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    padding: 6px 10px;
+}
+.users__header__search>.search,
+.users_header__middle>.search{
+    display: flex;
+    flex: 1;
+    align-items: center;
+    border: 1px solid #1864AB;
+}
+.users__header__search>.search>input,
+.users_header__middle>.search>input{
+    width: 100%;
+    height: 30px;
+    background-color: inherit;
+    border: none;
+    outline: none;
+}
+.users__header__search>.search>i,
+.users_header__middle>.search>i{
+    padding: 6px;
+    color: #1864AB;
+}
+
+
+
+
+
+
+
+
+/* Table */
+.actif{
+    background-color: rgb(77, 192, 77);
+    padding: 2px 18px;
+    border-radius: 15px;
+    color: white;
+    font-size: 14px;
+}
+.NoActif{
+    background-color: rgb(253, 135, 89);
+    padding: 2px 18px;
+    border-radius: 15px;
+    color: white;
+    font-size: 14px;
+}
+
+.users_table{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+.users_table>thead{
+    background-color: #1864AB;
+    color: white;
+}
+.users_table>tbody{
+    overflow-y: scroll;
+    background-color: lightgrey;
+    height: 350px;
+}
+.users_table>thead>tr,
+.users_table>tbody>tr{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 8px;
+    /* border-bottom: 1px solid #1864AB; */
+}
+.users_table>tbody>tr{
+    margin: 1px 0;
+    background-color: white;
+    align-items: center;
+}
+.users_table>tbody>tr:last-child{
+    margin:0;
+}
+.users_table>thead>tr>th,
+.users_table>tbody>tr>td{
+    text-align: center;
+    flex: 1;
+}
+.users_table_btn{
+    padding: 8px 9px;
+    outline: none;
+    background-color: whitesmoke;
+    color: #1864AB;
+    border: none;
+    font-size: 14px;
+    border-radius: 50%;
+    margin: 0 2px;
+    cursor: pointer;
+}
+.users_table_btn:first-child{
+    padding: 8px 11px;
+}
+.users_table_btn:hover{
+    color: white;
+    background-color: #1864AB;
+    transition: all .3s ease-in-out;
+}
+
+.table__footer{
+    background-color: #3a78b3;
+    display: flex;
+    justify-content: right;
+}
+.table__footer__pagination{
+    padding: 7px 10px;
+}
+.table__footer__pagination>button{
+    padding: 4px 8px;
+    outline: none;
+    font-size: 14px;
+    border-radius: 15px;
+    margin: 0 2px;
+    cursor: pointer;
+    color: #0b60af;
+    background-color: white;
+    border: 1px solid #01213f;
+}
+.table__footer__pagination>button:hover{
+    background-color: #0b60af;
+    color: white;
+    border: 1px solid white;
+    transition: all .3s ease-in-out;
+}
+
+.table__footer__pagination .pahinationActive{
+    background-color: #0b60af;
+    color: white;
+    border: 1px solid white;
+}
+
+
+
+
+
+
+
+
+
+/* Modal Add New User */
+.users__add{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top:0;
+    left: 0;    
+    z-index: 900;
+    background-color: rgba(0, 0, 0, 0.9);
+    
+}
+.users__add>button{
+    position: absolute;
+    right: 20px;
+    top:20px;
+    padding: 9px 13px;
+    border: none;
+    overflow: none;
+    border-radius: 50%;
+    background-color: white;
+    color: #0b60af;
+    cursor: pointer;
+    z-index: 901;
+}
+.users__add>button:hover{
+    transition: all .4s ease-in-out;
+    background-color: #0b60af;
+    color: whitesmoke;
+}

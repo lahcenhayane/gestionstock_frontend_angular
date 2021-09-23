@@ -72,7 +72,7 @@
                     <img src="./../../../../../assets/img/logo__user.png" alt="" srcset="">
                     <h3>{{user.nom+' '+user.nom}}</h3>
                     <p>{{user.role}}</p>
-                    <div *ngIf="user.client != null">
+                    <div *ngIf="user.role == 'Client'">
                         <p><span>Total Commande: </span>765</p>
                     </div>
                 </div>
@@ -94,10 +94,10 @@
                 <div class="users_show__body_info">
                     <p><span>Gendre:</span> {{user.gendre}}</p>
                 </div>
-                <div class="users_show__body_info" *ngIf="user.employee != null">
-                    <p><span>Salaire:</span> {{user.employee?.salaire}} DH</p>
+                <div class="users_show__body_info" *ngIf="user.role == 'Employee'">
+                    <p><span>Salaire:</span> {{user.employee?.salaire}} <strong *ngIf="user.employee?.salaire != null">DH</strong></p>
                 </div>
-                <div class="users_show__body_info" *ngIf="user.client != null">
+                <div class="users_show__body_info" *ngIf="user.role == 'Client'">
                     <p><span>Adresse:</span>  {{user.client?.adresse}}</p>
                 </div>
             </div>
@@ -122,7 +122,7 @@
             <div class="users__add__modal__body__left">
                 <div [ngClass]="{
                     'control-form':true,
-                    'border-green':(formUser.controls['cin'].dirty || formUser.controls['cin'].touched) && formUser.controls['cin'].valid,
+                    'border-green':(formUser.controls['cin'].dirty || formUser.controls['cin'].touched) && formUser.controls['cin'].valid || formUser.controls['email'].value,
                     'border-red':(formUser.controls['cin'].dirty || formUser.controls['cin'].touched) && formUser.controls['cin'].invalid
                 }">
                     <label for="cin">Cin</label>
@@ -140,7 +140,7 @@
                 </div>
                 <div [ngClass]="{
                     'control-form':true,
-                    'border-green':(formUser.controls['nom'].dirty || formUser.controls['nom'].touched) && formUser.controls['nom'].valid,
+                    'border-green':(formUser.controls['nom'].dirty || formUser.controls['nom'].touched) && formUser.controls['nom'].valid || formUser.controls['email'].value,
                     'border-red':(formUser.controls['nom'].dirty || formUser.controls['nom'].touched) && formUser.controls['nom'].invalid
                 }">
                     <label for="nom">Nom</label>
@@ -159,7 +159,7 @@
 
                 <div [ngClass]="{
                     'control-form':true,
-                    'border-green':(formUser.controls['prenom'].dirty || formUser.controls['prenom'].touched) && formUser.controls['prenom'].valid,
+                    'border-green':(formUser.controls['prenom'].dirty || formUser.controls['prenom'].touched) && formUser.controls['prenom'].valid || formUser.controls['email'].value,
                     'border-red':(formUser.controls['prenom'].dirty || formUser.controls['prenom'].touched) && formUser.controls['prenom'].invalid
                 }">
                     <label for="nom">Prenom</label>
@@ -177,7 +177,7 @@
                 </div>
                 <div [ngClass]="{
                     'control-form':true,
-                    'border-green':(formUser.controls['email'].dirty || formUser.controls['email'].touched) && formUser.controls['email'].valid,
+                    'border-green':(formUser.controls['email'].dirty || formUser.controls['email'].touched) && formUser.controls['email'].valid || formUser.controls['email'].value,
                     'border-red':(formUser.controls['email'].dirty || formUser.controls['email'].touched) && formUser.controls['email'].invalid
                 }">
                     <label for="email">Email</label>
@@ -198,7 +198,7 @@
                     'control-form':true,
                     'border-green':formUser.controls['password'].valid,
                     'border-red':(formUser.controls['password'].dirty || formUser.controls['password'].touched) && formUser.controls['password'].invalid
-                }">
+                }" *ngIf="!OPEN_EDIT">
                     <label for="password">Mot de passe</label>
                     <div class="control-form__password">
                         <div class="control-form__input">
@@ -227,7 +227,7 @@
 
                 <div [ngClass]="{
                     'control-form':true,
-                    'border-green':formUser.controls['gendre'].valid,
+                    'border-green':formUser.controls['gendre'].valid  || formUser.controls['email'].value,
                     'border-red':(formUser.controls['gendre'].dirty || formUser.controls['gendre'].touched) && formUser.controls['gendre'].invalid
                 }">
                     <label for="">Gendre</label>
@@ -269,7 +269,7 @@
             <div class="users__add__modal__body__right">
                 <div [ngClass]="{
                     'control-form':true,
-                    'border-green':(formUser.controls['ville'].dirty || formUser.controls['ville'].touched) && formUser.controls['ville'].valid,
+                    'border-green':(formUser.controls['ville'].dirty || formUser.controls['ville'].touched) && formUser.controls['ville'].valid || formUser.controls['email'].value,
                     'border-red':(formUser.controls['ville'].dirty || formUser.controls['ville'].touched) && formUser.controls['ville'].invalid
                 }">
                 <label for="ville">Ville</label>
@@ -288,7 +288,7 @@
 
                 <div [ngClass]="{
                     'control-form':true,
-                    'border-green':(formUser.controls['tel'].dirty || formUser.controls['tel'].touched) && formUser.controls['tel'].valid,
+                    'border-green':(formUser.controls['tel'].dirty || formUser.controls['tel'].touched) && formUser.controls['tel'].valid || formUser.controls['email'].value,
                     'border-red':(formUser.controls['tel'].dirty || formUser.controls['tel'].touched) && formUser.controls['tel'].invalid
                 }">
                 <label for="tel">Telephone</label>
@@ -308,7 +308,7 @@
 
                 <div [ngClass]="{
                     'control-form':true,
-                    'border-green':(formUser.controls['dateNaissance'].dirty || formUser.controls['dateNaissance'].touched) && formUser.controls['dateNaissance'].valid,
+                    'border-green':(formUser.controls['dateNaissance'].dirty || formUser.controls['dateNaissance'].touched) && formUser.controls['dateNaissance'].valid || formUser.controls['email'].value,
                     'border-red':(formUser.controls['dateNaissance'].dirty || formUser.controls['dateNaissance'].touched) && formUser.controls['dateNaissance'].invalid
                 }">
                 <label for="dateNaissance">Date Naissance</label>
@@ -326,7 +326,7 @@
 
                 <div [ngClass]="{
                     'control-form':true,
-                    'border-green':formUser.controls['role'].valid,
+                    'border-green':formUser.controls['role'].valid || formUser.controls['email'].value,
                     'border-red':(formUser.controls['role'].dirty || formUser.controls['role'].touched) && formUser.controls['role'].invalid
                 }">
                     <label for="role">Role</label>
@@ -367,7 +367,7 @@
 
                 <div [ngClass]="{
                     'control-form':true,
-                    'border-green':(formUser.controls['employee'].get('salaire')?.dirty || formUser.controls['employee'].get('salaire')?.touched) && formUser.controls['employee'].get('salaire')?.valid,
+                    'border-green':(formUser.controls['employee'].get('salaire')?.dirty || formUser.controls['employee'].get('salaire')?.touched) && formUser.controls['employee'].get('salaire')?.valid || formUser.controls['email'].value,
                     'border-red':(formUser.controls['employee'].get('salaire')?.dirty || formUser.controls['employee'].get('salaire')?.touched) && formUser.controls['employee'].get('salaire')?.invalid
                 }" *ngIf="RADIO_ROLE_EMPLOYEE" >
                 <label for="salaire">Salaire</label>
@@ -387,7 +387,7 @@
 
                 <div [ngClass]="{ 
                         'control-form':true,
-                        'border-green':formUser.controls['client'].get('adresse')?.valid && (formUser.controls['client'].get('adresse')?.touched || formUser.controls['client'].get('adresse')?.dirty),
+                        'border-green':formUser.controls['client'].get('adresse')?.valid  || formUser.controls['email'].value && (formUser.controls['client'].get('adresse')?.touched || formUser.controls['client'].get('adresse')?.dirty),
                         'border-red':formUser.controls['client'].get('adresse')?.invalid && (formUser.controls['client'].get('adresse')?.touched || formUser.controls['client'].get('adresse')?.dirty)
                     }"
                     *ngIf="RADIO_ROLE_CLIENT" >
