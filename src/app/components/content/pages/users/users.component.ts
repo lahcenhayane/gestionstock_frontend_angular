@@ -16,6 +16,8 @@ export class UsersComponent implements OnInit {
   constructor(private _userService:UserService, private tokenService:TokenService) { }
 
   ngOnInit(): void {
+    console.log(this.users);
+    
     this.getAllUser(0, "")
   }
 

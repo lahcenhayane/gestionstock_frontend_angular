@@ -1,71 +1,202 @@
 <div class="products">
-    <div class="product__header">
-        <div class="users__header" *ngIf="!OPEN_BOX_SEARCH">
-            <h3>Total Produits: {{ totalRow }}</h3>
-            <div class="users_header__middle">
-                <div class="search">
-                    <i class="fas fa-search"></i>
-                    <input (keyup)="F_Serach_Product_By_Category(0, $event)" type="text" placeholder="Chercher par categorie">
+    <div class="user">
+        <div class="users_all">
+            <div class="product__header">
+                <div class="users__header" *ngIf="!OPEN_BOX_SEARCH">
+                    <h3>Total Produits: {{ totalRow }}</h3>
+                    <div class="users_header__middle">
+                        <div class="search">
+                            <i class="fas fa-search"></i>
+                            <input (keyup)="F_Serach_Product_By_Category(0, $event)" type="text" placeholder="Chercher par categorie">
+                        </div>
+                    </div>
+                    <div class="users__header__right">
+                        <button (click)="F_Open_Box_Add_Product()"><i class="fas fa-user-plus"></i></button>
+                        <button (click)="F_OPEN_BOX_SEARCH()"><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+                <div class="users__header__search" *ngIf="OPEN_BOX_SEARCH">
+                    <div class="search">
+                        <i class="fas fa-search"></i>
+                        <input (keyup)="F_Serach_Product_By_Name(0, $event)" type="text" placeholder="Chercher par produit">
+                    </div>
+                    <button (click)="F_CLOSE_BOX_SEARCH()"><i class="fas fa-times"></i></button>
                 </div>
             </div>
-            <div class="users__header__right">
-                <button (click)="F_OPEN_BOX_PRODUCT()"><i class="fas fa-user-plus"></i></button>
-                <button (click)="F_OPEN_BOX_SEARCH()"><i class="fas fa-search"></i></button>
+
+            <table class="users_table">
+                <thead>
+                    <tr>
+                        <th>Nom de produit</th>
+                        <th>Prix</th>
+                        <th>Quantite</th>
+                        <th>Categorie</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    <tr *ngFor="let item of products">
+                        <td>{{ item.nom }}</td>
+                        <td>{{ item.prix }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>{{ item.categorie.labelle }}</td>
+                        <td>
+                            <button class="users_table_btn" (click)="F_Open_Box_Delete_Product(item)"><i class="fas fa-trash-alt"></i></button>
+                            <button class="users_table_btn" (click)="F_Open_Box_Edit_Product(item)"><i class="fas fa-user-edit"></i></button>
+                            <button class="users_table_btn" (click)="F_Show_Product(item)"><i class="fas fa-eye"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="table__footer">
+                <div class="table__footer__pagination">
+                    <span style="color: white;">Page: </span>
+                    
+                    <button type="button">1</button>
+                    
+                </div>
             </div>
         </div>
-        <div class="users__header__search" *ngIf="OPEN_BOX_SEARCH">
-            <div class="search">
-                <i class="fas fa-search"></i>
-                <input (keyup)="F_Serach_Product_By_Name(0, $event)" type="text" placeholder="Chercher par produit">
+
+        <div class="users_show" *ngIf="OPEN_BOX_SHOW_PRODUCT">
+            <div class="users_show__header">
+                <h3>Les information Produit.</h3>
+                <i (click)="F_CLOSE_BOX_INFO_PRODUCT()" class="fas fa-times"></i>
             </div>
-            <button (click)="F_CLOSE_BOX_SEARCH()"><i class="fas fa-times"></i></button>
+            <div class="users_show__body">
+                <div class="users_show__body_Header">
+                    <img src="./../../../../../assets/img/favicon.ico" alt="" srcset="">
+                    <h3>{{product.nom}}</h3>
+                    <p>{{product.categorie.labelle}}</p>
+                </div>
+                <div class="users_show__body_info">
+                    <p><span>Prix:</span> {{product.prix}}</p>
+                </div>
+                <div class="users_show__body_info">
+                    <p><span>Quantite:</span> {{product.quantity}}</p>
+                </div>
+            </div>
+    
         </div>
+    
     </div>
-
-    <table class="users_table">
-        <thead>
-            <tr>
-                <th>Nom de produit</th>
-                <th>Prix</th>
-                <th>Quantite</th>
-                <th>Categorie</th>
-                <th>Ations</th>
-            </tr>
-        </thead>
-        <tbody>
-            
-            <tr *ngFor="let item of products">
-                <td>{{ item.nom }}</td>
-                <td>{{ item.prix }}</td>
-                <td>{{ item.quantity }}</td>
-                <td>{{ item.categorie.labelle }}</td>
-                <td>
-                    <button class="users_table_btn"><i class="fas fa-trash-alt"></i></button>
-                    <button class="users_table_btn"><i class="fas fa-user-edit"></i></button>
-                    <button class="users_table_btn"><i class="fas fa-eye"></i></button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <div class="table__footer">
-        <div class="table__footer__pagination">
-            <span style="color: white;">Page: </span>
-            
-            <button type="button">1</button>
-            
-        </div>
-    </div>
-
-
-
+    
 </div>
-
-
 
 
 
 <!-- Modal Add New User -->
 <div class="users__add" *ngIf="OPEN_BOX">
-    <button (click)="F_CLOSE_BOX_PRODUCT()"><i class="fas fa-times"></i></button>
+    <button (click)="F_Close_All()"><i class="fas fa-times"></i></button>
     
+    <form class="users__add__modal" (ngSubmit)="onSubmit()" [formGroup]="formProduct" *ngIf="Open_Box_Add_Product">
+        <div class="users__add__modal__header" *ngIf="!Open_Box_Edit_Product">
+            Ajouter Nouveau Produit
+        </div>
+        <div class="users__add__modal__header" *ngIf="Open_Box_Edit_Product">
+            Modifier Produit
+        </div>
+        <div class="users__add__modal__body">
+            <div class="users__add__modal__body__left">
+                <div class="control-form" >
+                    <label for="nom">Nom de produit</label>
+                    <div class="control-form__input">
+                        <input id="nom" type="text" formControlName="nom" placeholder="Entrer le Nom de produit.">
+                        <i *ngIf="(formProduct.controls['nom'].invalid || formProduct.controls['nom'].valid) && (formProduct.controls['nom'].dirty || formProduct.controls['nom'].touched)"
+                            [class]="(formProduct.controls['nom'].invalid && (formProduct.controls['nom'].dirty || formProduct.controls['nom'].touched))?'fas fa-exclamation-circle color-red':'fas fa-check color-green'"></i>
+                    </div>
+                    <div class="error" *ngIf="formProduct.controls['nom'].invalid && (formProduct.controls['nom'].dirty || formProduct.controls['nom'].touched)">
+                        <span *ngIf="formProduct.controls['nom'].getError('required')">Ce champ est obligatoire.</span>
+                        <span *ngIf="formProduct.controls['nom'].getError('minlength')">Ce champ doit être supérieur à 8 caractères.</span>
+                        <span *ngIf="formProduct.controls['nom'].getError('maxlength')">Ce champ doit être inférieur à 200 caractères.</span>
+                    </div>
+                </div>
+
+                <div class="control-form">
+                    <label for="quantity">Quantite</label>
+                    <div class="control-form__input">
+                        <input id="quantity" type="text" formControlName="quantity" placeholder="Entrer la quantite.">
+                        <i *ngIf="(formProduct.controls['quantity'].invalid || formProduct.controls['quantity'].valid) && (formProduct.controls['quantity'].dirty || formProduct.controls['quantity'].touched)"
+                            [class]="(formProduct.controls['quantity'].invalid && (formProduct.controls['quantity'].dirty || formProduct.controls['quantity'].touched))?'fas fa-exclamation-circle color-red':'fas fa-check color-green'"></i>
+                    </div>
+                    <div class="error" *ngIf="formProduct.controls['quantity'].invalid && (formProduct.controls['quantity'].dirty || formProduct.controls['quantity'].touched)">
+                        <p *ngIf="formProduct.controls['quantity'].getError('required')">Ce champ est obligatoire.</p>
+                        <p *ngIf="formProduct.controls['quantity'].getError('pattern')">Ce champ doit être un numéro.</p>
+                    </div>
+                </div>
+
+                <div class="control-form">
+                    <label for="prix">Parix</label>
+                    <div class="control-form__input">
+                        <input id="prix" type="text" formControlName="prix" placeholder="Entrer le parix de produit.">
+                        <i *ngIf="(formProduct.controls['prix'].invalid || formProduct.controls['prix'].valid) && (formProduct.controls['prix'].dirty || formProduct.controls['prix'].touched)"
+                            [class]="(formProduct.controls['prix'].invalid && (formProduct.controls['prix'].dirty || formProduct.controls['prix'].touched))?'fas fa-exclamation-circle color-red':'fas fa-check color-green'"></i>
+                    </div>
+                    <div class="error" *ngIf="formProduct.controls['prix'].invalid && (formProduct.controls['prix'].dirty || formProduct.controls['prix'].touched)">
+                        <p *ngIf="formProduct.controls['prix'].getError('required')">Ce champ est obligatoire.</p>
+                        <p *ngIf="formProduct.controls['prix'].getError('pattern')">Ce champ doit être un numéro ex:(20.00).</p>
+                    </div>
+                </div>
+            </div>
+            <div class="users__add__modal__body__right ">
+                <div class="control-form">
+                    <label for="categorie">Selectionner Categorie</label>
+                    <div class="control__form__input">
+                        <div class="control__form__input__search">
+                            <input (keyup)="F_Search_Categorie($event)" value="{{formProduct.controls['categorie'].get('labelle')?.value}}" id="categorie" type="text" placeholder="Entrer le nom de categorie.">
+                        </div>
+                        <div class="control__control__form__input__box" formGroupName="categorie">
+                            <div class="control__control__form__input__box_item" *ngFor="let item of categories">
+                                <input id="{{item.id}}" 
+                                       type="radio"
+                                       formControlName="id"
+                                       name="id"
+                                       value="{{item.id}}"
+                                       >
+                                <label for="{{item.id}}">
+                                    {{item.labelle}}
+                                    <i class="fas fa-check color-green"></i>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="error" *ngIf="formProduct.controls['categorie'].get('id')?.invalid && (formProduct.controls['categorie'].get('id')?.dirty || formProduct.controls['categorie'].get('id')?.touched)">
+                        <span *ngIf="formProduct.controls['categorie'].get('id')?.getError('required')">Ce champ est obligatoire.</span>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="users__add__modal__footer">
+            <button *ngIf="!Open_Box_Edit_Product"
+                    type="submit" 
+                    [ngClass]="formProduct.valid?'bg-success':'black'" 
+                    [disabled]="formProduct.invalid"
+            >Ajouter</button>
+            <button *ngIf="Open_Box_Edit_Product"
+                    type="submit" 
+                    [ngClass]="formProduct.valid?'bg-success':'black'" 
+                    [disabled]="formProduct.invalid"
+            >Modifier</button>
+            <button type="button" (click)="F_Close_All()" class="bg-close">Fermer</button>
+        </div>
+    </form>
+
+
+    <div class="users__delete__modal" *ngIf="Open_Box_Delete_Product">
+        <div class="users__delete__modal__header">
+            Supprimer produit
+        </div>
+        <div class="users__delete__modal__middle">
+            <h3>Voulez-vous vraiment supprimer cette produit?</h3>
+        </div>
+        <div class="users__delete__modal__footer">
+            <button (click)="F_Delete_Product()" class="bg-success">Oui</button>
+            <button (click)="F_Close_All()" class="bg-close">Non</button>
+        </div>
+    </div>
+
+
 </div>

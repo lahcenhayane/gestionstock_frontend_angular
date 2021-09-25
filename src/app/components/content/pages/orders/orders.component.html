@@ -1,22 +1,22 @@
 <div class="orders">
     <div class="product__header">
         <div class="users__header" *ngIf="!OPEN_BOX_SEARCH">
-            <h3>Total Utilisateurs: 12</h3>
+            <h3>Total Commandes: 4</h3>
             <div class="users_header__middle">
                 <div class="search">
                     <i class="fas fa-search"></i>
-                    <input type="text" placeholder="Chercher par categorie">
+                    <input type="text" placeholder="Chercher par ID">
                 </div>
             </div>
             <div class="users__header__right">
-                <button (click)="F_OPEN_BOX_PRODUCT()"><i class="fas fa-user-plus"></i></button>
+                <button (click)="F_OPEN_BOX_Add_Orders()"><i class="fas fa-user-plus"></i></button>
                 <button (click)="F_OPEN_BOX_SEARCH()"><i class="fas fa-search"></i></button>
             </div>
         </div>
         <div class="users__header__search" *ngIf="OPEN_BOX_SEARCH">
             <div class="search">
                 <i class="fas fa-search"></i>
-                <input type="text" placeholder="Chercher par produit">
+                <input type="text" placeholder="Chercher par client or employee">
             </div>
             <button (click)="F_CLOSE_BOX_SEARCH()"><i class="fas fa-times"></i></button>
         </div>
@@ -25,20 +25,27 @@
     <table class="users_table">
         <thead>
             <tr>
-                <th>Nom de produit</th>
+                <th>ID Commande</th>
                 <th>Prix</th>
-                <th>Quantite</th>
-                <th>Categorie</th>
+                <th>Client</th>
+                <th>Employee</th>
+                <th>Admin</th>
                 <th>Ations</th>
             </tr>
         </thead>
         <tbody>
             
-            <tr>
-                <td>produit un</td>
-                <td>12.00</td>
-                <td>23</td>
-                <td>Categorie One</td>
+            <tr *ngFor="let item of orders">
+                <td>{{ item.id }}</td>
+                <td>{{ item.prixTotal }}</td>
+                <td>{{ item.clients?.utilisateur?.nom +" "+item.clients?.utilisateur?.prenom}}</td>
+                
+                <td *ngIf="item.employes">{{ item.employes?.utilisateur?.nom +" "+item.employes?.utilisateur?.prenom}}</td>
+                <td *ngIf="!item.employes"> --- </td>
+                
+                <td *ngIf="item.admins">{{ item.admins?.utilisateur?.nom +" "+item.admins?.utilisateur?.prenom}}</td>
+                <td *ngIf="!item.admins"> --- </td>
+                
                 <td>
                     <button class="users_table_btn"><i class="fas fa-trash-alt"></i></button>
                     <button class="users_table_btn"><i class="fas fa-user-edit"></i></button>
@@ -67,5 +74,30 @@
 <!-- Modal Add New User -->
 <div class="users__add" *ngIf="OPEN_BOX">
     <button (click)="F_CLOSE_BOX_PRODUCT()"><i class="fas fa-times"></i></button>
-    
+    <form class="users__add__modal" *ngIf="Open_Box_Add_Orders">
+        <div class="users__add__modal__header" *ngIf="!Open_Box_Edit_Order">
+            Ajouter Nouveau Produit
+        </div>
+        <div class="users__add__modal__header" *ngIf="Open_Box_Edit_Order">
+            Modifier Produit
+        </div>
+        <div class="users__add__modal__body">
+            <div class="users__add__modal__body__left">
+                <div class="control-form" >
+                    <label for="nom">Nom de produit</label>
+                    <div class="control-form__input">
+                        <input id="nom" type="text" formControlName="nom" placeholder="Entrer le Nom de produit.">
+                    </div>
+                    <div class="error">
+                        <span>Ce champ est obligatoire.</span>
+                        <span>Ce champ doit être supérieur à 8 caractères.</span>
+                        <span>Ce champ doit être inférieur à 200 caractères.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="users__add__modal__body__right ">
+                Hello
+            </div>
+        </div>
+    </form>
 </div>

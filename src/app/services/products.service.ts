@@ -1,3 +1,4 @@
+import { Products } from 'src/app/models/Products';
 import { Observable } from 'rxjs';
 import { ProductsCategory } from './../models/ListsPage/ProductsCategory';
 import { HttpClient } from '@angular/common/http';
@@ -21,4 +22,17 @@ export class ProductsService {
     return this._http.get<ProductsCategory>(`${this._URL_PRODUCTS}/search?page=${page}&name=${name}`);
   }
 
+  createNewProduct(data:any){
+    return this._http.post<Products>(`${this._URL_PRODUCTS}`, data);
+  }
+
+  deleteProduct(id:number){
+    return this._http.delete(`${this._URL_PRODUCTS}/${id}`);
+  }
+
+  editProduct(id:number, data:any){
+    console.log(data);
+    
+    return this._http.put(`${this._URL_PRODUCTS}/${id}`, data);
+  }
 }
