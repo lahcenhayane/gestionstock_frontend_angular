@@ -1,0 +1,41 @@
+.home{
+    display: flex;
+    flex-direction: column;
+}
+.line{
+    width: 3px;
+    height: 3px;
+}
+
+.home_header{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.home_header app-header{
+    flex: 1;
+    cursor: pointer;
+}
+
+.home_body{
+    display: flex;
+    justify-content: space-between;
+    flex: 1;
+    margin: 60px 11px;
+    /* background-color: violet; */
+}
+
+.home_body_table_left,
+.home_body_table_right{
+    display: flex;
+    flex-direction: column;
+    
+    flex: .5;
+}
+
+.home_body_table_left>h3,
+.home_body_table_right>h3{
+    background-color: #1864AB;
+    padding: 8px;
+    color: white;
+}

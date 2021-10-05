@@ -10,11 +10,11 @@
     <a class="sidebar__body__link active" routerLink="">
       <p><i class="fas fa-home"></i>Accueil</p>
     </a>
-    <a class="sidebar__body__link" routerLink="users">
+    <a class="sidebar__body__link" routerLink="users" *ngIf="role != 'Client' ">
       <p><i class="fas fa-users"></i>Gestion Utilisateurs</p>
       
     </a>
-    <a class="sidebar__body__link" routerLink="products">
+    <a class="sidebar__body__link" routerLink="products" *ngIf="role != 'Client' ">
       <p><i class="fas fa-store"></i>Gestion Produits</p>
       
     </a>
@@ -22,16 +22,8 @@
       <p><i class="fas fa-shopping-cart"></i>Gestion Commandes</p>
       
     </a>
-    <a class="sidebar__body__link" routerLink="categories">
+    <a class="sidebar__body__link" routerLink="categories" *ngIf="role != 'Client' ">
       <p><i class="fas fa-tags"></i>Gestion Categories</p>
-      
-    </a>
-    <a class="sidebar__body__link" href="">
-      <p><i class="fas fa-envelope"></i>Messages</p>
-      
-    </a>
-    <a class="sidebar__body__link" href="">
-      <p><i class="fas fa-home"></i>Gestion Categorie</p>
       
     </a>
   </div>

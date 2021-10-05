@@ -238,3 +238,250 @@
     background-color: #0b60af;
     color: whitesmoke;
 }
+.users__add__modal{
+    position: absolute;
+    z-index: 902;
+    width: 70%;
+    height: fit-content;
+    top: 12%;
+    transform: translateX(22%);
+    background-color: whitesmoke;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #0b60af;
+    overflow-y: scroll;
+}
+.users__add__modal__header,
+.users__add__modal__footer
+{
+    background-color: #0b60af;
+}
+.users__add__modal__header{
+    color: white;
+    text-align: center;
+    padding: 10px;
+}
+.users__add__modal__body{
+    flex: 1;
+}
+.users__add__modal__footer{
+    padding: 6px;
+    display: flex;
+    justify-content: end;
+}
+.users__add__modal__footer>button{
+    padding: 4px 14px;
+    outline: none;
+    margin: 0 4px;
+    border: none;;
+    border-radius: 3px;
+    font-weight: 500;
+    font-size: 13px;
+    cursor: pointer;
+    color: white;
+}
+.users__add__modal__footer>button:hover{
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.3);
+}
+.users__add__modal__footer .bg-success{
+    background-color: rgb(20, 148, 20);
+}
+.users__add__modal__footer .bg-close{
+    background-color: rgb(148, 29, 29);
+}
+
+.users__add__modal__body{
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+}
+.users__add__modal__body__left,
+.users__add__modal__body__right{
+    display: flex;
+    flex-direction: column;
+    
+    padding: 3px;
+}
+.users__add__modal__body__left{
+    flex: 0.5;
+}
+.users__add__modal__body__right{
+    flex: 0.5;
+}
+.control-form{
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    padding: 8px;
+    border-radius: 15px;
+    background-color: white;
+}
+.control-form>label{
+    font-size: 13.5px;
+    margin-left: 4px;
+}
+.control-form__input,
+.control__form__input__search{
+    display: flex;
+    flex: 1;
+    align-items: center;
+    background-color: #eee;
+    border-radius: 5px;
+    padding: 5px 4px;
+}
+.control-form__input>input,
+.control__form__input__search>input,
+.control-form__input>textarea,
+.control-form__input__password>input{
+    outline: none;
+    flex: 1;
+    background-color: inherit;
+    border: none;
+}
+
+
+
+
+
+.control__form__input{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+.control__form__input__search{
+    
+}
+.control__control__form__input__box{
+    height: 170px !important;
+    background-color: #eee;
+    border-radius: 10px;
+    margin-top: 5px;
+    overflow-y: scroll;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+.control__control__form__input__box_item>label{
+    background-color: white;
+    padding: 6px 12px;
+    margin: 2px 4px;
+    border-radius: 10px;
+    color: #333;
+    font-weight: 500;
+    border:1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+}
+.control__control__form__input__box_item>label:hover{
+    background-color: rgb(211, 210, 210);
+    cursor: pointer;
+}
+.control__control__form__input__box_item>label>i{
+    display: none;
+}
+.control__control__form__input__box_item>input:checked+label,
+.control__control__form__input__box_item>input:checked+label>i{
+    display: flex;
+    background-color: rgb(211, 210, 210);
+}
+.control__control__form__input__box_item>input{
+    display: none;
+}
+
+
+
+
+
+
+
+
+/* Modal Delete User */
+.users__delete__modal{
+    position: absolute;
+    z-index: 902;
+    width: 350px;
+    height: 130px;
+    top: 35%;
+    left: 38%;
+    background-color: whitesmoke;
+    display: flex;
+    flex-direction: column;
+    border: 2.5 solid rgb(189, 23, 23) !important;
+}
+
+.users__delete__modal__header,
+.users__delete__modal__footer{
+    background-color: rgb(189, 23, 23);
+}
+.users__delete__modal__header{
+    padding: 6px;
+    color: white;
+    text-align: center;
+}
+.users__delete__modal__middle{
+    flex: 1;
+    padding: 10px;
+}
+
+.users__delete__modal__footer{
+    display: flex;
+    justify-content: end;
+    padding: 4px 0;
+}
+.users__delete__modal__footer>button{
+    padding: 3px 28px;
+    margin: 0 4px;
+    border: none;
+    outline: none;
+    color: white;
+    background-color: rgb(105, 18, 18);
+    cursor: pointer;
+}
+.users__delete__modal__footer>button:last-child{
+    background-color: rgb(97, 2, 2);
+}
+
+
+
+
+
+
+.border-red{
+    border: 1.5px solid rgb(204, 61, 61);
+}
+.border-green{
+    border: 1.5px solid rgb(22, 158, 22);
+}
+.bg-green{
+    /* background-color: rgb(22, 158, 22) !important; */
+    cursor: pointer;
+    border: 1.5px solid rgb(22, 158, 22);
+    color: rgb(22, 158, 22);
+}
+.color-green{
+    color: rgb(22, 158, 22) !important;
+}
+.color-red{
+    color: rgb(204, 61, 61) !important;
+}
+.black{
+    color: black !important;
+    box-shadow: none !important;
+    cursor: not-allowed !important;
+}
+.error{
+    color: rgb(204, 61, 61) !important;
+}
+
+.users__header__search>.search{
+    padding-left: 6px;
+}
+.users__header__search>.search>button{
+    background-color: #1864AB;
+    outline: none;
+    border: none;
+    padding: 8px;
+    color: white;
+    cursor: pointer;
+}

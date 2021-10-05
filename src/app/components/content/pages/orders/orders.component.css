@@ -496,8 +496,6 @@
 
 
 
-
-
 .border-red{
     border: 1.5px solid rgb(204, 61, 61);
 }
@@ -524,3 +522,6 @@
 .error{
     color: rgb(204, 61, 61) !important;
 }
+
+
+

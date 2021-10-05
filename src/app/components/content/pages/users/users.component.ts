@@ -1,9 +1,11 @@
+import { ClientsService } from './../../../../services/clients.service';
 import { TokenService } from './../../../../services/auth/token.service';
 
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { Users } from 'src/app/models/Users';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Clients } from 'src/app/models/Clients';
 
 
 @Component({
@@ -13,13 +15,16 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class UsersComponent implements OnInit {
 
-  constructor(private _userService:UserService, private tokenService:TokenService) { }
+  constructor(private _userService:UserService, private _clientService:ClientsService, private tokenService:TokenService) { }
 
   ngOnInit(): void {
     console.log(this.users);
     
     this.getAllUser(0, "")
   }
+
+
+  rolee = this.tokenService.getRole();
 
 
   /* Start: Declaration Variables */
@@ -273,6 +278,9 @@ export class UsersComponent implements OnInit {
 
 
   /* Start: Delete User */
+
+
+
   Open_Box_Delete_User:boolean = false;
   ID_DELETE_USERL:any=0;
   F_Open_Box_Delete(user:Users){
@@ -281,16 +289,8 @@ export class UsersComponent implements OnInit {
     this.ID_DELETE_USERL = user.id;
   }
 
-  delete(){
-    this._userService.deleteUser(this.ID_DELETE_USERL).subscribe(
-      () => {
-        this.users = this.users.filter(row => row.id != this.ID_DELETE_USERL)
-        this.ID_DELETE_USERL = 0;
-        this.totalRow--;
-        this.F_Close_Box_User()
-        this.F_CLOSE_BOX_INFO_USER()
-      }
-    );
+  F_delete(user:Users){
+    this.users = this.users.filter(row => row.id != user.id)
   }
   /* End: Delete User */
 
@@ -326,11 +326,22 @@ export class UsersComponent implements OnInit {
   F_OPEN_BOX_INFO_USER(){
     this.OPEN_CLOSE_BOX_INFO_USER = true
   }
+  id_client:any = 0
   F_SHOW_USER(item:Users){
+    if (item.role == "Client") {
+      this.getCountCmdClient(item.client?.id)
+    }
     this.F_OPEN_BOX_INFO_USER()
     return this.user = item;
   }
   
+  countCMDClient:any = 0
+  getCountCmdClient(id:any){
+    this._clientService.getCountCmdClient(id).subscribe(
+      res=>this.countCMDClient = res,
+      err=>console.log(err)
+    )
+  }
   /* Start:Show User */
 
 

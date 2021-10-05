@@ -1,3 +1,42 @@
 <div class="home">
-    Home
+    <div class="home_header">
+        <app-header 
+            title="Total Utilisateurs" 
+            icon="fas fa-users" 
+            [total]="countUsers">
+        </app-header>
+        <app-header 
+            title="Total Produits" 
+            icon="fas fa-store-alt" 
+            [total]="countProducts">
+        </app-header>
+        <app-header 
+            title="Total Commandes" 
+            icon="fas fa-shopping-basket" 
+            [total]="countOrders">
+        </app-header>
+        <app-header 
+            title="Total Categories" 
+            icon="fas fa-tags" 
+            [total]="countCategory">
+        </app-header>
+    </div>
+    <div class="home_body">
+        <div class="home_body_table_left">
+            <h3><i class="fas fa-fire"></i> Top 5 des clients récents.</h3>
+            <div class="home_body_table_left_body">
+                <app-topclient *ngFor="let item of TopClients"
+                   fullname="{{ item.nom }} {{ item.prenom }}" email="{{ item.email}}">
+                </app-topclient>
+                
+            </div>
+        </div>
+        <div class="line"></div>
+        <div class="home_body_table_right">
+            <h3><i class="fas fa-fire"></i> Top 5 des produits récents.</h3>
+            <div class="home_body_table_right__body">
+                
+            </div>
+        </div>
+    </div>
 </div>

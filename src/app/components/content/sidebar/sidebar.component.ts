@@ -21,6 +21,7 @@ export class SidebarComponent implements OnInit {
   ngOnInit(): void {
     this.username = this.tokenService.getUsername();
     this.role = this.tokenService.getRole();  
+    
   }
 
 }

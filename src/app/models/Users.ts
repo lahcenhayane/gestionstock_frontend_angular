@@ -12,7 +12,9 @@ export interface Users{
     tel:string,
     dateNaissance:Date,
     gendre:string,
-    role:string
+    role:string,
+
+    
     
     supprimer?:Date
 

@@ -1,3 +1,4 @@
+import { TokenService } from 'src/app/services/auth/token.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Categories } from './../../../../models/Categories';
 import { ProductsService } from './../../../../services/products.service';
@@ -12,7 +13,7 @@ import { CategoriesService } from 'src/app/services/categories.service';
 })
 export class ProductsComponent implements OnInit {
 
-  constructor(private _productService:ProductsService, private _categorieService:CategoriesService) { }
+  constructor(private _productService:ProductsService, private _categorieService:CategoriesService, private _tokenService:TokenService) { }
 
   ngOnInit(): void {
     this.getAllProducts(0, "");
@@ -23,7 +24,7 @@ export class ProductsComponent implements OnInit {
 
 
   //Start: Global Variable
-  
+  role:any = this._tokenService.getRole();
 
 
   //End: Global Variable
@@ -199,6 +200,7 @@ export class ProductsComponent implements OnInit {
     nom:'',
     prix:0,
     quantity:0.0,
+    quantute:0,
     categorie:{
       id:0,
       labelle:''

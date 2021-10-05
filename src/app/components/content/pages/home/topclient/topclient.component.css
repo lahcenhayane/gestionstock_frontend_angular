@@ -1,0 +1,19 @@
+.top_client{
+    background-color: white;
+    margin: 3px 0;
+    display: flex;
+    padding: 10px;
+    align-items: center;
+}
+.top_client>h2{
+    background-color: #1864AB;
+    padding: 7px 13.5px;
+    border-radius: 50%;
+    color: white;
+    margin-right: 14px;
+}
+.home_body_table_left_body_info{
+    display: flex;
+    flex-direction: column;
+    color: #1864AB;
+}

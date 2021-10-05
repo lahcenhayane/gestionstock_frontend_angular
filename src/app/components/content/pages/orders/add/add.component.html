@@ -1,0 +1,100 @@
+<div class="orders_add">
+
+    <div class="orders_add__left">
+        <div class="orders_add__left_header">
+            <h3>Ajouter nouveau commande</h3>
+        </div>
+        <div class="orders_add__left__body">
+            <div class="orders_add__left__body_items one">
+                <div class="orders_add__left__body_item">
+                    <i class="fas fa-search"></i>
+                    <input type="text" (keyup)="Search_Client($event)" placeholder="Chercher par cin">
+                </div>
+              
+                <div class="orders_add__left__body_items_body">
+                    <div class="orders_add__left__body_items_body_item"
+                        *ngFor="let item of users">
+                        <input id="{{ item.id }}" type="radio" name="client" value="{{ item.id }}">
+                        <i class="fas fa-user"></i>
+                        <label for="{{ item.id }}" (click)="AddClientToPanier(item)">
+                            <h4>{{ item.cin }}</h4>
+                            <h5>{{ item.nom +" "+item.prenom }}</h5>
+                            <small>{{ item.email }}</small>
+                            <i class="fas fa-user-check"></i>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="orders_add__left__body_items">
+                <div class="orders_add__left__body_item">
+                    <i class="fas fa-search"></i>
+                    <input type="text" (keyup)="search_Product($event)" placeholder="Chercher par categorie">
+                </div>
+                <div class="orders_add__left__body_items_body">
+                    <div class="orders_add__left__body_items_body_item"
+                        *ngFor="let item of products">
+                        <input id="{{ item.id }}" type="checkbox" name="product" value="{{ item.id }}">
+                        <i class="fas fa-store"></i>
+                        <label for="{{ item.id }}">
+                            <h4>{{ item.nom }}</h4>
+                            <h5>{{ item.categorie?.labelle }}</h5>
+                            <small>{{ item.prix }} <strong>DH</strong></small>
+                            <i class="fas fa-user-check"></i>
+                        </label>
+                        <div class="orders_add__left__body_items_body_item_quantity">
+                            <input type="text" [(ngModel)]="item.quantute">
+                            <button (click)="AddProductToPanier(item)">+</button>
+                            <!-- <label for="">Quantite</label>
+                            <input (keyup)="QuantityProduct($event)" type="number" name="" id=""> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="orders_add_center"></div>
+    <div class="orders_add__right">
+        <div class="orders_add__right_header">
+            <h3>La facture</h3>
+        </div>
+        <div class="orders_add__right__body">
+            <div class="orders_add__right__body_client">
+                <h3><i class="fas fa-user"></i> Client</h3>
+                <div class="orders_add__right__body_client_info">
+                    <label><strong>Cin:</strong> {{ clientPanier?.cin }}</label>
+                    <label><strong>Nom:</strong> {{ clientPanier?.nom }}</label>
+                    <label><strong>Prenom:</strong> {{ clientPanier?.prenom }}</label>
+                    <label><strong>Email:</strong> {{ clientPanier?.email }}</label>
+                    <label><strong>Ville:</strong> {{ clientPanier?.ville }}</label>
+                    <label><strong>Telephone:</strong> {{ clientPanier?.tel }}</label>
+                </div>
+            </div>
+            <div class="orders_add__right__body_products">
+                <h3><i class="fas fa-store"></i> Les Produits</h3>
+                <div class="orders_add__right__body_products_info">
+                    <div class="orders_add__right__body_products_info_item"
+                        *ngFor="let item of p">
+
+                        <div class="orders_add__right__body_products_info_item_header">
+                            <h4>{{ item.nom }}</h4>
+                            <h5>{{ item.prix }} DH</h5>
+                        </div>
+                        <div class="orders_add__right__body_products_info_item_body">
+                            <h5>Quantite: {{ item.quantute }}</h5>
+                            <h5>Total: {{ item.quantute * item.prix}} DH</h5>
+                            <button><i (click)="Annuler(item)" class="fas fa-times-circle"></i></button>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="orders_add__right__body_products_footer">
+                    <h3>Total: {{countTotal}} DH</h3>
+                    <button (click)="add()">Confirmer</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>

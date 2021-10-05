@@ -10,7 +10,8 @@ export const environment = {
   url_users:"http://localhost:8080/api/users",
   url_products:"http://localhost:8080/api/products",
   url_categories:"http://localhost:8080/api/categories",
-  url_orders:"http://localhost:8080/api/orders"
+  url_orders:"http://localhost:8080/api/orders",
+  url_clients:"http://localhost:8080/api/clients"
 };
 
 /*

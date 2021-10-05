@@ -1,25 +1,18 @@
 <div class="orders">
     <div class="product__header">
         <div class="users__header" *ngIf="!OPEN_BOX_SEARCH">
-            <h3>Total Commandes: 4</h3>
+            <h3>Total Commandes: {{ totalRow }}</h3>
             <div class="users_header__middle">
                 <div class="search">
                     <i class="fas fa-search"></i>
-                    <input type="text" placeholder="Chercher par ID">
+                    <input (keyup)="F_Search_Orders($event)" type="text" placeholder="Chercher par ID">
                 </div>
             </div>
-            <div class="users__header__right">
+            <div class="users__header__right" *ngIf="role != 'Client' ">
                 <button (click)="F_OPEN_BOX_Add_Orders()"><i class="fas fa-user-plus"></i></button>
-                <button (click)="F_OPEN_BOX_SEARCH()"><i class="fas fa-search"></i></button>
             </div>
         </div>
-        <div class="users__header__search" *ngIf="OPEN_BOX_SEARCH">
-            <div class="search">
-                <i class="fas fa-search"></i>
-                <input type="text" placeholder="Chercher par client or employee">
-            </div>
-            <button (click)="F_CLOSE_BOX_SEARCH()"><i class="fas fa-times"></i></button>
-        </div>
+        
     </div>
 
     <table class="users_table">
@@ -47,9 +40,9 @@
                 <td *ngIf="!item.admins"> --- </td>
                 
                 <td>
-                    <button class="users_table_btn"><i class="fas fa-trash-alt"></i></button>
-                    <button class="users_table_btn"><i class="fas fa-user-edit"></i></button>
-                    <button class="users_table_btn"><i class="fas fa-eye"></i></button>
+                    <button (click)="deleteOrder(item)" class="users_table_btn" *ngIf="role != 'Client' "><i class="fas fa-trash-alt"></i></button>
+                    <!-- <button class="users_table_btn" *ngIf="role != 'Client' "><i class="fas fa-user-edit"></i></button> -->
+                    <button (click)="show_order()" class="users_table_btn"><i class="fas fa-eye"></i></button>
                 </td>
             </tr>
         </tbody>
@@ -84,7 +77,7 @@
         <div class="users__add__modal__body">
             <div class="users__add__modal__body__left">
                 <div class="control-form" >
-                    <label for="nom">Nom de produit</label>
+                    <label for="nom"></label>
                     <div class="control-form__input">
                         <input id="nom" type="text" formControlName="nom" placeholder="Entrer le Nom de produit.">
                     </div>

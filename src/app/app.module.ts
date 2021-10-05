@@ -10,11 +10,15 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HomeComponent } from './components/content/pages/home/home.component';
 import { UsersComponent } from './components/content/pages/users/users.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JwtInterceptor } from './services/jwt.interceptor';
 import { ProductsComponent } from './components/content/pages/products/products.component';
 import { CategoriesComponent } from './components/content/pages/categories/categories.component';
 import { OrdersComponent } from './components/content/pages/orders/orders.component';
+import { AddComponent } from './components/content/pages/orders/add/add.component';
+import { ShowComponent } from './components/content/pages/orders/show/show.component';
+import { HeaderComponent } from './components/content/pages/home/header/header.component';
+import { TopclientComponent } from './components/content/pages/home/topclient/topclient.component';
 
 
 @NgModule({
@@ -29,13 +33,18 @@ import { OrdersComponent } from './components/content/pages/orders/orders.compon
     PageNotFoundComponent,
     ProductsComponent,
     CategoriesComponent,
-    OrdersComponent
+    OrdersComponent,
+    AddComponent,
+    ShowComponent,
+    HeaderComponent,
+    TopclientComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule, 
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [
     {

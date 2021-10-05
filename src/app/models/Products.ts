@@ -4,6 +4,6 @@ export interface Products{
     nom:string,
     prix:number,
     quantity:number,
-
+    quantute:any,
     categorie:Categories
 }

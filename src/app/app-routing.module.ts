@@ -1,3 +1,5 @@
+import { ShowComponent } from './components/content/pages/orders/show/show.component';
+import { AddComponent } from './components/content/pages/orders/add/add.component';
 import { AuthLoginGuard } from './guards/auth-login.guard';
 import { UsersComponent } from './components/content/pages/users/users.component';
 import { ContentComponent } from './components/content/content.component';
@@ -36,7 +38,11 @@ const routes: Routes = [
       },
       {
         path:"orders",
-        component:OrdersComponent
+        children:[
+          {path:"", component:OrdersComponent},
+          {path:"add", component:AddComponent},
+          {path:"show", component:ShowComponent}
+        ]
       }
     ],
     canActivate:[AuthGuard]
